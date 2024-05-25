@@ -161,6 +161,8 @@ public class Movie {
         return trailerFilePath;
     }
 
+
+
     @Override
     public String toString() {
         // Concatenating strings and variables to compose an english description of the movie.
@@ -168,5 +170,13 @@ public class Movie {
                 String.valueOf(genre).toLowerCase() + " movie. " +
                 "It lasts " + movieDurationMinutes + " minutes, and tickets cost $" +
                 cost + ". ";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Movie m) {
+            return this.toString().equals(m.toString());
+        }
+        return false;
     }
 }
