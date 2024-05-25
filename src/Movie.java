@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The movie class. Holds information such as the name, genre, length, file path, etc.
@@ -170,7 +172,7 @@ public class Movie {
 
     /**
      * Create a swing GUI tab equipped with everything required for this movie.
-     * @return {@code JPanel} The JPanel tab 
+     * @return {@code JPanel} The JPanel tab
      */
     public JPanel createTrailerPlayer() {
         return new TrailerPlayer(this);
@@ -179,7 +181,7 @@ public class Movie {
     /**
      * Create a swing GUI tab equipped with everything required for a movie.
      * @param m {@code Movie} Movie object
-     * @return {@code JPanel} The JPanel tab 
+     * @return {@code JPanel} The JPanel tab
      */
     public static JPanel createTrailerPlayer(Movie m) {
         return new TrailerPlayer(m);
@@ -217,21 +219,127 @@ public class Movie {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Movie m) { // Checking if o is a instance of Movie, and parsing to Movie object
-            return this.toString().equals(m.toString());
+            return (this.getName().equals(m.getName()) &&
+                    this.getCost() == m.getCost() &&
+                    this.getReleaseYear() == m.getReleaseYear() &&
+                    this.getMovieDurationMinutes() == m.getMovieDurationMinutes() &&
+                    this.getGenre() == m.getGenre() &&
+                    this.getTrailerFilePath().equals(m.getTrailerFilePath()) &&
+                    this.getDescription().equals(m.getDescription())
+                    );
         }
-        return false;
+        return false; // Return false by default if o isn't a movie.
     }
 }
 
-class TrailerPlayer extends JPanel {
-    private Movie m;
+class TrailerPlayer extends JPanel implements ActionListener {
+    public static final String PAUSE_TEXT = "||";
+    public static final String PLAY_TEXT =  ">";
+
+    private final Movie movie;
+    private final JPanel view, bottomBar;
+    private final JButton pauseButton;
+    private final JSlider slideBar;
+
+    private final Timer timer;
+
+    private boolean paused;
 
     public TrailerPlayer() {
         this(new Movie());
     }
 
     public TrailerPlayer(Movie m) {
+        movie = m;
+        paused = true;
 
+        timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                repaint();
+            }
+        });
+
+        // Creating components
+        view = new JPanel();
+        bottomBar = new JPanel();
+        pauseButton = new JButton();
+        slideBar = new JSlider();
+
+        // Config components
+        init();
+
+        // Start timer
+        timer.start();
+    }
+
+    public void init() {
+        // Configure JPanel
+        setBackground(Color.BLACK);
+        setName("TrailerPlayer (" + movie.getName() + ")");
+        setLayout(new BorderLayout());
+        setBackground(new Color(0, 0, 0));
+        setBorder(null);
+        setFocusable(false);
+
+        // Configure view
+        view.setName("View");
+        view.setLayout(new GridLayout(1, 1)); // Only one component allowed, which is video
+        view.setBackground(new Color(0, 255, 0, 0));
+        view.setBorder(null);
+        view.setFocusable(false);
+
+        // Configure bottom bar
+        bottomBar.setName("Bottom");
+        bottomBar.setLayout(new GridBagLayout());
+        bottomBar.setBackground(new Color(255, 0, 0, 0));
+        bottomBar.setBorder(null);
+        bottomBar.setFocusable(false);
+        bottomBar.setPreferredSize(new Dimension(0, 50));
+
+        GridBagConstraints bottomConstraints = new GridBagConstraints();
+        bottomConstraints.fill = GridBagConstraints.BOTH;
+        bottomConstraints.anchor = GridBagConstraints.CENTER;
+        bottomConstraints.weighty = 1.0;
+        bottomConstraints.insets = new Insets(0, 3, 3, 3);
+
+        // Configure pause button
+        pauseButton.setText(PLAY_TEXT);
+        pauseButton.setFocusable(false);
+        pauseButton.addActionListener(this);
+        pauseButton.setBorder(null);
+        pauseButton.setContentAreaFilled(false);
+        pauseButton.setBackground(new Color(0, 0, 0));
+        pauseButton.setForeground(new Color(255, 255, 255));
+        pauseButton.setFont(new Font("Arial", Font.BOLD, 25));
+        pauseButton.setPreferredSize(new Dimension(100, 0));
+
+        // Configure slider bar
+        slideBar.setName("Slider");
+        slideBar.setFocusable(false);
+        slideBar.setMinimum(0);
+        slideBar.setMaximum(1000);
+        slideBar.setMajorTickSpacing(1);
+        slideBar.setPaintTicks(false);
+        slideBar.setBackground(new Color(0, 0, 0));
+        slideBar.setValue(0);
+
+        // Adding components
+        bottomConstraints.gridx = 0;
+        bottomConstraints.gridy = 0;
+        bottomConstraints.gridwidth = 1;
+        bottomConstraints.gridheight = 1;
+        bottomBar.add(pauseButton, bottomConstraints);
+
+        bottomConstraints.gridx = 1;
+        bottomConstraints.gridy = 0;
+        bottomConstraints.gridwidth = 1;
+        bottomConstraints.gridheight = 1;
+        bottomConstraints.weightx = 1.0;
+        bottomBar.add(slideBar, bottomConstraints);
+
+        add(view, BorderLayout.CENTER);
+        add(bottomBar, BorderLayout.SOUTH);
     }
 
     @Override
@@ -241,5 +349,22 @@ class TrailerPlayer extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         super.paint(g);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(pauseButton)) {
+            if (paused) {
+                paused = false;
+                pauseButton.setText(PAUSE_TEXT);
+                slideBar.setEnabled(false);
+            } else {
+                paused = true;
+                pauseButton.setText(PLAY_TEXT);
+                slideBar.setEnabled(true);
+            }
+        }
+        revalidate();
+        repaint();
     }
 }
