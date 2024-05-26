@@ -1,7 +1,20 @@
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.embed.swing.JFXPanel;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Screen;
+import javafx.util.Duration;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * The movie class. Holds information such as the name, genre, length, file path, etc.
@@ -241,6 +254,8 @@ class TrailerPlayer extends JPanel implements ActionListener {
     private final JButton pauseButton;
     private final JSlider slideBar;
 
+    private final MediaPlayer player;
+
     private final Timer timer;
 
     private boolean paused;
@@ -253,18 +268,16 @@ class TrailerPlayer extends JPanel implements ActionListener {
         movie = m;
         paused = true;
 
-        timer = new Timer(1, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                repaint();
-            }
-        });
+        timer = new Timer(1, this);
 
         // Creating components
         view = new JPanel();
         bottomBar = new JPanel();
         pauseButton = new JButton();
         slideBar = new JSlider();
+        player = new MediaPlayer(
+                new Media(new File(m.getTrailerFilePath()).toURI().toString())
+        );
 
         // Config components
         init();
@@ -288,6 +301,36 @@ class TrailerPlayer extends JPanel implements ActionListener {
         view.setBackground(new Color(0, 255, 0, 0));
         view.setBorder(null);
         view.setFocusable(false);
+
+        // Configure video player
+        JFXPanel vidPanel = new JFXPanel();
+
+        vidPanel.setName("Video Panel");
+        vidPanel.setBackground(new Color(0, 0, 0));
+        vidPanel.setFocusable(false);
+
+        MediaView vidViewer = new MediaView(player);
+        vidViewer.setFocusTraversable(false);
+
+        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+        vidViewer.setX((screen.getWidth() - view.getWidth()) / 2);
+        vidViewer.setY((screen.getHeight() - view.getHeight()) / 2);
+
+        DoubleProperty width = vidViewer.fitWidthProperty();
+        DoubleProperty height = vidViewer.fitHeightProperty();
+        width.bind(Bindings.selectDouble(vidViewer.sceneProperty(), "width"));
+        height.bind(Bindings.selectDouble(vidViewer.sceneProperty(), "height"));
+        vidViewer.setPreserveRatio(true); // Keep the aspect ratio
+
+        StackPane layout = new StackPane();
+        layout.setStyle("-fx-background-color: black"); // Setting a background for space that isn't taken up by the video (it's a little weird, it takes in a String, not a Color obj)
+        layout.setFocusTraversable(false);
+
+        Scene scene = new Scene(layout);
+
+        layout.getChildren().add(vidViewer);
+
+        vidPanel.setScene(scene);
 
         // Configure bottom bar
         bottomBar.setName("Bottom");
@@ -318,7 +361,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
         slideBar.setName("Slider");
         slideBar.setFocusable(false);
         slideBar.setMinimum(0);
-        slideBar.setMaximum(1000);
+        slideBar.setMaximum((int) player.getTotalDuration().toMillis()/2);
         slideBar.setMajorTickSpacing(1);
         slideBar.setPaintTicks(false);
         slideBar.setBackground(new Color(0, 0, 0));
@@ -338,8 +381,29 @@ class TrailerPlayer extends JPanel implements ActionListener {
         bottomConstraints.weightx = 1.0;
         bottomBar.add(slideBar, bottomConstraints);
 
+        view.add(vidPanel);
         add(view, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
+    }
+
+    public void pause() {
+        paused = true;
+        pauseButton.setText(PLAY_TEXT);
+        slideBar.setEnabled(true);
+        player.pause();
+    }
+
+    public void play() {
+        paused = false;
+        pauseButton.setText(PAUSE_TEXT);
+        slideBar.setEnabled(false);
+        player.play();
+    }
+
+    public void stop() {
+        pause();
+        slideBar.setValue(0);
+        player.seek(Duration.ZERO);
     }
 
     @Override
@@ -355,16 +419,21 @@ class TrailerPlayer extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(pauseButton)) {
             if (paused) {
-                paused = false;
-                pauseButton.setText(PAUSE_TEXT);
-                slideBar.setEnabled(false);
+                play();
             } else {
-                paused = true;
-                pauseButton.setText(PLAY_TEXT);
-                slideBar.setEnabled(true);
+                pause();
+            }
+        } else if (e.getSource().equals(timer)) {
+            if (paused) {
+                player.seek(Duration.millis(slideBar.getValue()*2));
+            } else {
+                slideBar.setValue((int) player.getCurrentTime().toMillis()/2);
+                if (player.getCurrentTime().equals(player.getTotalDuration())) {
+                    stop();
+                }
             }
         }
-        revalidate();
+
         repaint();
     }
 }

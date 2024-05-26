@@ -1,11 +1,13 @@
+import javafx.embed.swing.JFXPanel;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 
 public class MovieTest {
     public static void main(String[] args) {
-        Movie movie1 = new Movie("Lego Movie 1", 40f, 2014, 100f, Movie.Genres.Action);
-        Movie movie2 = new Movie("Lego Movie 2", 45f, 2019, 107f, Movie.Genres.Action);
+        new JFXPanel();
+        Movie movie1 = new Movie("Twisters", 40f, 2024, 100f, Movie.Genres.Action, "src\\TwistersTrailer.mp4");
         
         JFrame frame = new JFrame("Movie test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
