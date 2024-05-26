@@ -253,6 +253,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
     private final JPanel view, bottomBar;
     private final JButton pauseButton;
     private final JSlider slideBar;
+    private final JLabel timeLabel;
 
     private final MediaPlayer player;
 
@@ -275,6 +276,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
         bottomBar = new JPanel();
         pauseButton = new JButton();
         slideBar = new JSlider();
+        timeLabel = new JLabel();
         player = new MediaPlayer(
                 new Media(new File(m.getTrailerFilePath()).toURI().toString())
         );
@@ -352,8 +354,8 @@ class TrailerPlayer extends JPanel implements ActionListener {
         pauseButton.addActionListener(this);
         pauseButton.setBorder(null);
         pauseButton.setContentAreaFilled(false);
-        pauseButton.setBackground(new Color(0, 0, 0));
-        pauseButton.setForeground(new Color(255, 255, 255));
+        pauseButton.setBackground(Color.BLACK);
+        pauseButton.setForeground(Color.WHITE);
         pauseButton.setFont(new Font("Arial", Font.BOLD, 25));
         pauseButton.setPreferredSize(new Dimension(100, 0));
 
@@ -364,22 +366,38 @@ class TrailerPlayer extends JPanel implements ActionListener {
         slideBar.setMaximum((int) player.getTotalDuration().toMillis()/2);
         slideBar.setMajorTickSpacing(1);
         slideBar.setPaintTicks(false);
-        slideBar.setBackground(new Color(0, 0, 0));
+        slideBar.setBackground(Color.BLACK);
         slideBar.setValue(0);
+
+        // Configure time label
+        timeLabel.setName("TimeLabel");
+        timeLabel.setFocusable(false);
+        timeLabel.setText("0:00");
+        timeLabel.setBackground(Color.BLACK);
+        timeLabel.setForeground(Color.WHITE);
+        timeLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 
         // Adding components
         bottomConstraints.gridx = 0;
         bottomConstraints.gridy = 0;
         bottomConstraints.gridwidth = 1;
         bottomConstraints.gridheight = 1;
+        bottomConstraints.weightx = 0.02;
         bottomBar.add(pauseButton, bottomConstraints);
 
         bottomConstraints.gridx = 1;
         bottomConstraints.gridy = 0;
         bottomConstraints.gridwidth = 1;
         bottomConstraints.gridheight = 1;
-        bottomConstraints.weightx = 1.0;
+        bottomConstraints.weightx = 0.88;
         bottomBar.add(slideBar, bottomConstraints);
+
+        bottomConstraints.gridx = 2;
+        bottomConstraints.gridy = 0;
+        bottomConstraints.gridwidth = 1;
+        bottomConstraints.gridheight = 1;
+        bottomConstraints.weightx = 0.1;
+        bottomBar.add(timeLabel, bottomConstraints);
 
         view.add(vidPanel);
         add(view, BorderLayout.CENTER);
@@ -404,6 +422,26 @@ class TrailerPlayer extends JPanel implements ActionListener {
         pause();
         slideBar.setValue(0);
         player.seek(Duration.ZERO);
+    }
+
+    public String millisToMinutes(int millis) {
+        int min = millis/60000;
+        int sec = (millis/1000) % 60;
+
+        String strMin, strSec;
+        if (min < 10) {
+            strMin = 0 + String.valueOf(min);
+        } else {
+            strMin = String.valueOf(min);
+        }
+
+        if (sec < 10) {
+            strSec = 0 + String.valueOf(sec);
+        } else {
+            strSec = String.valueOf(sec);
+        }
+
+        return strMin + ":" + strSec;
     }
 
     @Override
@@ -432,6 +470,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
                     stop();
                 }
             }
+            timeLabel.setText(millisToMinutes((int) player.getCurrentTime().toMillis()));
         }
 
         repaint();
