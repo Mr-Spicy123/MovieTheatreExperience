@@ -152,14 +152,6 @@ public class Movie {
     }
 
     /**
-     * Set the genre of the movie
-     * @param g The new genre of the movie (see {@link Movie.Genres})
-     */
-    public void setGenre(Genres g) {
-        genre = g;
-    }
-
-    /**
      * Get the genre of the movie
      * @return The genre of the movie (see {@link Movie.Genres})
      */
@@ -168,11 +160,11 @@ public class Movie {
     }
 
     /**
-     * Set the path of the local trailer media file.
-     * @param path {@code String} The new file path
+     * Set the genre of the movie
+     * @param g The new genre of the movie (see {@link Movie.Genres})
      */
-    public void setTrailerFilePath(String path) {
-        trailerFilePath = path;
+    public void setGenre(Genres g) {
+        genre = g;
     }
 
     /**
@@ -181,6 +173,14 @@ public class Movie {
      */
     public String getTrailerFilePath() {
         return trailerFilePath;
+    }
+
+    /**
+     * Set the path of the local trailer media file.
+     * @param path {@code String} The new file path
+     */
+    public void setTrailerFilePath(String path) {
+        trailerFilePath = path;
     }
 
     /**
