@@ -335,7 +335,8 @@ class TrailerPlayer extends JPanel implements ActionListener {
                 new Media(new File(movie.getTrailerFilePath()).toURI().toString())
         );
         player.setOnError(() -> {
-            statusLabel.setText("An error occurred while playing your video.");
+            statusLabel.setText("An error occurred while playing your video: " + player.getError().getMessage());
+            System.out.println("An error occurred while playing the video: " + player.getError().getMessage());
         });
         if (player.getStatus() == MediaPlayer.Status.READY) { // Check if media already loaded
             System.out.println("Already loaded");
