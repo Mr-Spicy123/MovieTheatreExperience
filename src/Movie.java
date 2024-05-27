@@ -11,8 +11,6 @@ import javafx.stage.Screen;
 import javafx.util.Duration;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -218,29 +216,40 @@ public class Movie {
         return description;
     }
 
+    /**
+     * Get the description of the Movie object.
+     * @return A description set by the developer using the {@code setDescription(String d)} method.
+     * If no such description exists, returns a programmatically generated description.
+     */
     @Override
     public String toString() {
         if (description == null) {
-            // Generate a movie description using concatenation
+            // Generate a movie description using instance variables
             return name + " (released in " + releaseYear + ")" + " is a " +
                     String.valueOf(genre).toLowerCase() + " movie. " +
                     "It lasts " + movieDurationMinutes + " minutes, and tickets cost $" +
                     cost + ". ";
         } else {
-            return  description; // Return developer-set description if it exists,
+            return description; // Return developer-set description if it exists,
         }
     }
 
+    /**
+     * Check if two objects share the same properties
+     * @param o The object to compare
+     * @return {@code true} if object o is an instance of {@link Movie}, and shares the same properties of this Movie object.
+     * {@code false} if either of the conditions doesn't apply.
+     */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Movie m) { // Checking if o is a instance of Movie, and parsing to Movie object
-            return (this.getName().equals(m.getName()) &&
-                    this.getCost() == m.getCost() &&
-                    this.getReleaseYear() == m.getReleaseYear() &&
-                    this.getMovieDurationMinutes() == m.getMovieDurationMinutes() &&
-                    this.getGenre() == m.getGenre() &&
-                    this.getTrailerFilePath().equals(m.getTrailerFilePath()) &&
-                    this.getDescription().equals(m.getDescription())
+        if (o instanceof Movie m) { // Checking if o is an instance of Movie, and parsing to Movie object
+            return (this.getName().equals(m.getName()) && // Check if the name is the same
+                    this.getCost() == m.getCost() && // Check if cost is the same
+                    this.getReleaseYear() == m.getReleaseYear() && // Check if release year is the same
+                    this.getMovieDurationMinutes() == m.getMovieDurationMinutes() && // Check if the movie duration is the same
+                    this.getGenre() == m.getGenre() && // Check fi the genre is the same
+                    this.getTrailerFilePath().equals(m.getTrailerFilePath()) && // Check if the trailer is the same
+                    this.getDescription().equals(m.getDescription()) // Check if the description is the same (even if it's null)
                     );
         }
         return false; // Return false by default if o isn't a movie.
@@ -282,11 +291,11 @@ class TrailerPlayer extends JPanel implements ActionListener {
 
         // Config components
         init();
-
-        // Start timer
-        // timer.start();
     }
 
+    /**
+     * Build the UI
+     */
     public void init() {
         // Configure JPanel
         setBackground(Color.BLACK);
@@ -334,22 +343,23 @@ class TrailerPlayer extends JPanel implements ActionListener {
         player = new MediaPlayer(
                 new Media(new File(movie.getTrailerFilePath()).toURI().toString())
         );
-        player.setOnError(() -> {
+        player.setOnError(() -> { // Run the following anytime an error occurs
+            // Display and print the error for debugging
             statusLabel.setText("An error occurred while playing your video: " + player.getError().getMessage());
             System.out.println("An error occurred while playing the video: " + player.getError().getMessage());
         });
         if (player.getStatus() == MediaPlayer.Status.READY) { // Check if media already loaded
-            System.out.println("Already loaded");
-            initPlayer();
-        } else { // If not loaded, wait for media to load, and then run initPlayer() and repaint+revalidate
-            player.setOnReady(() -> {
-                System.out.println("Loaded");
-                initPlayer();
+            initPlayer(); // Start the video player
+        } else { // If not loaded yet
+            player.setOnReady(() -> { // Wait for media to load. Once loaded, run the following
+                initPlayer(); // Start the video player
+                // Repaint + revalidate to fix any errors or bugs
                 repaint();
                 revalidate();
             });
         }
 
+        // Configuring vidPanel properties
         vidPanel.setName("Video Panel");
         vidPanel.setBackground(new Color(0, 0, 0));
         vidPanel.setFocusable(false);
@@ -394,16 +404,15 @@ class TrailerPlayer extends JPanel implements ActionListener {
         slideBar.setMajorTickSpacing(1);
         slideBar.setPaintTicks(false);
         slideBar.setBackground(Color.BLACK);
-        slideBar.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if (paused) {
-                    player.seek(Duration.millis(slideBarValueToMillis(slideBar.getValue())));
-                    timeLabel.setText(millisToTime(slideBarValueToMillis(slideBar.getValue())));
-                }
-                bottomBar.repaint();
-                bottomBar.revalidate();
+        slideBar.addChangeListener(_ -> { // Run the following anytime the slide bar changes
+            if (paused) { // If paused, constantly update the video layer and the time label to the va;ie pf the slide bar
+                int millis = slideBarValueToMillis(slideBar.getValue());
+                player.seek(Duration.millis(millis)); // Setting the video player position
+                timeLabel.setText(millisToTime(millis)); // Updating the text of the time label
             }
+            // Repaint + revalidate the bottomBar to fix any errors or bugs
+            bottomBar.repaint();
+            bottomBar.revalidate();
         });
 
         // Configure time label
@@ -442,6 +451,9 @@ class TrailerPlayer extends JPanel implements ActionListener {
         add(statusLabel, BorderLayout.NORTH);
     }
 
+    /**
+     * Starts the media player and adds the required listeners to the required components.
+     */
     private void initPlayer() {
         slideBar.setMinimum(0);
         slideBar.setMaximum(millisToSlideBarValue((int) player.getTotalDuration().toMillis()));
@@ -451,20 +463,22 @@ class TrailerPlayer extends JPanel implements ActionListener {
         vidPanel.setVisible(true);
         bottomBar.setVisible(true);
 
-        player.currentTimeProperty().addListener((observableValue, duration, _) -> {
-            if (!paused) {
+        player.currentTimeProperty().addListener((_, duration, _) -> { // Run the following each time the player frame updates
+            if (!paused) { // Check if isn't paused
+                // Overwrite the slide bar value and the time label text to the current time of the player
                 slideBar.setValue(millisToSlideBarValue((int) duration.toMillis()));
                 timeLabel.setText(millisToTime((int) duration.toMillis()));
             }
         });
-        player.setOnEndOfMedia(() -> { // Loop video
-            player.seek(Duration.ZERO);
-        });
+        // Stop video
+        player.setOnEndOfMedia(this::stop); // Stop the video once it reaches the end.
 
-        // timer.start();
-        ready = true;
+        ready = true; // Flag the TrailerPlayer as ready-to-play
     }
 
+    /**
+     * Programmatically pause the video
+     */
     public void pause() {
         paused = true;
         pauseButton.setText(PLAY_TEXT);
@@ -472,6 +486,9 @@ class TrailerPlayer extends JPanel implements ActionListener {
         player.pause();
     }
 
+    /**
+     * Programmatically play the video
+     */
     public void play() {
         paused = false;
         pauseButton.setText(PAUSE_TEXT);
@@ -479,6 +496,9 @@ class TrailerPlayer extends JPanel implements ActionListener {
         player.play();
     }
 
+    /**
+     * Programmatically stop the video
+     */
     public void stop() {
         pause();
         slideBar.setValue(0);
@@ -486,41 +506,58 @@ class TrailerPlayer extends JPanel implements ActionListener {
         ready = false;
     }
 
+    /**
+     * Programmatically close the video
+     */
     public void close() {
         setVisible(false);
         player.dispose();
     }
 
+    /**
+     * Convert milliseconds to slide bar value
+     * @param millis The milliseconds to convert
+     * @return Slide bar value
+     */
     public int millisToSlideBarValue(int millis) {
         return (millis/100);
     }
 
+    /**
+     * Convert slide bar value into milliseconds
+     * @param slideBarValue The value to convert
+     * @return Milliseconds
+     */
     public int slideBarValueToMillis(int slideBarValue) {
         return (slideBarValue*100);
     }
 
-    public String millisToTime(int millis) {
-        int min = millis/60000;
-        int sec = (millis/1000) % 60;
+    public String millisToTime(int millis) { // Convert milliseconds to minutes:seconds format
+        int min = millis/60000; // Minutes to display
+        int sec = (millis/1000) % 60; // Seconds under a minute to display
 
-        String strMin, strSec;
+        String strMin, strSec; // String version of the above integers
+        // If minute is below 10, concatenate a zero in front of it (this way it shows as "03" instead of just "3").
         if (min < 10) {
             strMin = 0 + String.valueOf(min);
         } else {
             strMin = String.valueOf(min);
         }
 
+        // Repeat the above for seconds
         if (sec < 10) {
             strSec = 0 + String.valueOf(sec);
         } else {
             strSec = String.valueOf(sec);
         }
 
+        // Return string minutes : string seconds
         return strMin + ":" + strSec;
     }
 
     @Override
     public void paint(Graphics g) {
+        // [Experimental] trying to smoothen the rendering
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -530,15 +567,15 @@ class TrailerPlayer extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(pauseButton)) {
-            if (ready) {
+        if (e.getSource().equals(pauseButton)) { // Pause button is clicked
+            if (ready) { // Check if UI is loaded
                 if (paused) {
-                    play();
+                    play(); // If currently pause, play.
                 } else {
-                    pause();
+                    pause(); // If currently playing, pause.
                 }
             }
-            repaint();
+            repaint(); // Repaint to fix any rendering issues
         }
     }
 }
