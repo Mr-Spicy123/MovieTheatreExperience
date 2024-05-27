@@ -255,12 +255,10 @@ class TrailerPlayer extends JPanel implements ActionListener {
     private final JPanel view, bottomBar;
     private final JButton pauseButton;
     private final JSlider slideBar;
-    private final JLabel timeLabel, loadingLabel;
+    private final JLabel timeLabel, statusLabel;
 
     private MediaPlayer player;
     private JFXPanel vidPanel;
-
-    private final Timer timer;
 
     private boolean paused;
     private boolean ready;
@@ -274,15 +272,13 @@ class TrailerPlayer extends JPanel implements ActionListener {
         paused = true;
         ready = false;
 
-        timer = new Timer(1, this);
-
         // Creating components
         view = new JPanel();
         bottomBar = new JPanel();
         pauseButton = new JButton();
         slideBar = new JSlider();
         timeLabel = new JLabel();
-        loadingLabel = new JLabel();
+        statusLabel = new JLabel();
 
         // Config components
         init();
@@ -322,14 +318,14 @@ class TrailerPlayer extends JPanel implements ActionListener {
         bottomConstraints.weighty = 1.0;
         bottomConstraints.insets = new Insets(0, 3, 3, 3);
 
-        // Configure loading label
-        loadingLabel.setName("LoadingLabel");
-        loadingLabel.setText("Loading...");
-        loadingLabel.setFocusable(false);
-        loadingLabel.setBackground(Color.BLACK);
-        loadingLabel.setForeground(Color.WHITE);
-        loadingLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        loadingLabel.setVisible(true);
+        // Configure status label
+        statusLabel.setName("statusLabel");
+        statusLabel.setText("Loading...");
+        statusLabel.setFocusable(false);
+        statusLabel.setBackground(Color.BLACK);
+        statusLabel.setForeground(Color.WHITE);
+        statusLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        statusLabel.setVisible(true);
 
         // Configure video player
         vidPanel = new JFXPanel();
@@ -338,10 +334,19 @@ class TrailerPlayer extends JPanel implements ActionListener {
         player = new MediaPlayer(
                 new Media(new File(movie.getTrailerFilePath()).toURI().toString())
         );
+        player.setOnError(() -> {
+            statusLabel.setText("An error occurred while playing your video.");
+        });
         if (player.getStatus() == MediaPlayer.Status.READY) { // Check if media already loaded
+            System.out.println("Already loaded");
             initPlayer();
-        } else { // If not loaded, wait for media to load, and then run initPlayer();
-            player.setOnReady(this::initPlayer);
+        } else { // If not loaded, wait for media to load, and then run initPlayer() and repaint+revalidate
+            player.setOnReady(() -> {
+                System.out.println("Loaded");
+                initPlayer();
+                repaint();
+                revalidate();
+            });
         }
 
         vidPanel.setName("Video Panel");
@@ -393,6 +398,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
             public void stateChanged(ChangeEvent e) {
                 if (paused) {
                     player.seek(Duration.millis(slideBarValueToMillis(slideBar.getValue())));
+                    timeLabel.setText(millisToTime(slideBarValueToMillis(slideBar.getValue())));
                 }
                 bottomBar.repaint();
                 bottomBar.revalidate();
@@ -432,7 +438,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
         view.add(vidPanel);
         add(view, BorderLayout.CENTER);
         add(bottomBar, BorderLayout.SOUTH);
-        add(loadingLabel, BorderLayout.NORTH);
+        add(statusLabel, BorderLayout.NORTH);
     }
 
     private void initPlayer() {
@@ -440,7 +446,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
         slideBar.setMaximum(millisToSlideBarValue((int) player.getTotalDuration().toMillis()));
         slideBar.setValue(0);
 
-        loadingLabel.setVisible(false);
+        statusLabel.setVisible(false);
         vidPanel.setVisible(true);
         bottomBar.setVisible(true);
 
@@ -454,7 +460,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
             player.seek(Duration.ZERO);
         });
 
-        timer.start();
+        // timer.start();
         ready = true;
     }
 
@@ -485,11 +491,11 @@ class TrailerPlayer extends JPanel implements ActionListener {
     }
 
     public int millisToSlideBarValue(int millis) {
-        return (millis/2);
+        return (millis/100);
     }
 
     public int slideBarValueToMillis(int slideBarValue) {
-        return (slideBarValue*2);
+        return (slideBarValue*100);
     }
 
     public String millisToTime(int millis) {
@@ -532,10 +538,6 @@ class TrailerPlayer extends JPanel implements ActionListener {
                 }
             }
             repaint();
-        } else if (e.getSource().equals(timer)) {
-            if (ready && paused) {
-                timeLabel.setText(millisToTime(slideBarValueToMillis(slideBar.getValue())));
-            }
         }
     }
 }
