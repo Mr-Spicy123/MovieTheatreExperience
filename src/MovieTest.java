@@ -12,12 +12,14 @@ public class MovieTest {
         JFrame frame = new JFrame("Movie test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
-        frame.setLayout(new BorderLayout());
-        
-        JPanel movieTab = movie1.createTrailerPlayer();
-        
-        frame.add(movieTab, BorderLayout.CENTER);
+        frame.setLayout(new GridLayout(2,2));
+
+        frame.add(movie1.createTrailerPlayer());
+        frame.add(movie1.createTrailerPlayer());
+        frame.add(movie1.createTrailerPlayer());
+        frame.add(movie1.createTrailerPlayer());
 
         frame.setVisible(true);
+        frame.repaint();
     }
 }
