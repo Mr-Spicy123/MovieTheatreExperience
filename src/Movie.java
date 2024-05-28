@@ -404,7 +404,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
         slideBar.setMajorTickSpacing(1);
         slideBar.setPaintTicks(false);
         slideBar.setBackground(Color.BLACK);
-        slideBar.addChangeListener(_ -> { // Run the following anytime the slide bar changes
+        slideBar.addChangeListener(a -> { // Run the following anytime the slide bar changes
             if (paused) { // If paused, constantly update the video layer and the time label to the va;ie pf the slide bar
                 int millis = slideBarValueToMillis(slideBar.getValue());
                 player.seek(Duration.millis(millis)); // Setting the video player position
@@ -463,7 +463,7 @@ class TrailerPlayer extends JPanel implements ActionListener {
         vidPanel.setVisible(true);
         bottomBar.setVisible(true);
 
-        player.currentTimeProperty().addListener((_, duration, _) -> { // Run the following each time the player frame updates
+        player.currentTimeProperty().addListener((a, duration, b) -> { // Run the following each time the player frame updates
             if (!paused) { // Check if isn't paused
                 // Overwrite the slide bar value and the time label text to the current time of the player
                 slideBar.setValue(millisToSlideBarValue((int) duration.toMillis()));
