@@ -20,25 +20,27 @@ public class TrailerPlayerTest {
         frame.setVisible(true);
 
         // Getting the trailer file
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(); // Create a new File Chooser
         fileChooser.setName("File chooser");
+        fileChooser.setDialogTitle("Choose a trailer to play.");
+        fileChooser.setCurrentDirectory(new File("src\\..\\")); // Set the current directory to the project directory
         fileChooser.setToolTipText("Select a trailer");
         fileChooser.setApproveButtonText("Choose trailer");
         fileChooser.setApproveButtonToolTipText("Open the selected trailer in the video player.");
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(".mp4 (H.264)", "mp4"));
 
-        String filePath = "";
+        String filePath = ""; // Variable used to store the file path
 
+        // Repeatedly prompt a file path until the received path possesses the suffix ".mp4"
         while (!filePath.endsWith(".mp4")) {
-            int returnVal = fileChooser.showOpenDialog(frame);
+            int returnVal = fileChooser.showOpenDialog(frame); // Prompt file chooser
 
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                filePath = file.getPath();
-            } else {
-                System.out.println("User chose to exit.");
-                System.exit(0);
+            if (returnVal == JFileChooser.APPROVE_OPTION) { // If user clicked on the choose button
+                File file = fileChooser.getSelectedFile(); // Get the selected file
+                filePath = file.getPath(); // Set filePath to the selected path for the loop condition
+            } else { // User clicked on a different button (ex: close button or cancel button)
+                System.exit(0); // Exit the program.
             }
         }
 
