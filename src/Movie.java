@@ -470,8 +470,10 @@ class TrailerPlayer extends JPanel implements ActionListener {
                 timeLabel.setText(millisToTime((int) duration.toMillis()));
             }
         });
-        // Stop video
-        player.setOnEndOfMedia(this::stop); // Stop the video once it reaches the end.
+
+        player.setOnEndOfMedia(() -> {
+            player.seek(Duration.ZERO);
+        }); // Restart the video
 
         ready = true; // Flag the TrailerPlayer as ready-to-play
     }
@@ -503,7 +505,6 @@ class TrailerPlayer extends JPanel implements ActionListener {
         pause();
         slideBar.setValue(0);
         player.seek(Duration.ZERO);
-        ready = false;
     }
 
     /**
