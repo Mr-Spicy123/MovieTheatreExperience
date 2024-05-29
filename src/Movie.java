@@ -23,7 +23,7 @@ public class Movie {
     /**
      * {@code enum} containing the movie genre options. Access using {@code dot-operator}. Example: {@code Movie.Genres.Action}
      */
-    public enum Genres {Action, Horror, UNKNOWN}
+    public enum Genres {Action, Horror, Animation, UNKNOWN}
 
     // Instance variables
     private String name; // The name of the movie
@@ -31,7 +31,8 @@ public class Movie {
     private int releaseYear; // The year of release
     private float movieDurationMinutes; // The length of the movie (in minutes)
     private Genres genre; // The genre of the movie (choose from enum class Genres above)
-    private String trailerFilePath; // The path of the trailer to be played
+    private String trailerFilePath; // The path of the trailer to be played (should be from content root)
+    private String coverFilePath; // The path of the cover to display (should be from content root)
     private String description; // The developer-set description
 
     /**
@@ -64,6 +65,7 @@ public class Movie {
                 release,
                 duration,
                 g,
+                "",
                 ""
         );
     }
@@ -78,6 +80,28 @@ public class Movie {
      * @param path The path of the trailer video file
      */
     public Movie(String n, float c, int release, float duration, Genres g, String path) {
+        // Chaining constructor
+        this(
+                n,
+                c,
+                release,
+                duration,
+                g,
+                path,
+                ""
+        );
+    }
+
+    /**
+     * Creates a new Movie object.
+     * @param n The name
+     * @param c The cost of the movie ticket
+     * @param release The release year
+     * @param duration The duration in minutes
+     * @param g The genre of the movie (see {@link Movie.Genres} for selections)
+     * @param path The path of the trailer video file
+     */
+    public Movie(String n, float c, int release, float duration, Genres g, String path, String cover) {
         // Initiating/Instantiating instance variables to their corresponding parameter
         name = n;
         cost = c;
@@ -85,6 +109,7 @@ public class Movie {
         movieDurationMinutes = duration;
         genre = g;
         trailerFilePath = path;
+        coverFilePath = cover;
     }
 
     /**
@@ -169,7 +194,7 @@ public class Movie {
 
     /**
      * Get the path of the local trailer media file.
-     * @return {@code String} The file path
+     * @return {@code String} The file path (from content root)
      */
     public String getTrailerFilePath() {
         return trailerFilePath;
@@ -177,10 +202,26 @@ public class Movie {
 
     /**
      * Set the path of the local trailer media file.
-     * @param path {@code String} The new file path
+     * @param path {@code String} The new file path (from content root)
      */
     public void setTrailerFilePath(String path) {
         trailerFilePath = path;
+    }
+
+    /**
+     * Get the path of the local cover media file.
+     * @return {@code String} The file path (from content root)
+     */
+    public String getCoverFilePath() {
+        return coverFilePath;
+    }
+
+    /**
+     * Set the path of the local cover media file.
+     * @param cover {@code String} The new file path (from content root)
+     */
+    public void setCoverFilePath(String cover) {
+        coverFilePath = cover;
     }
 
     /**
@@ -249,6 +290,7 @@ public class Movie {
                     this.getMovieDurationMinutes() == m.getMovieDurationMinutes() && // Check if the movie duration is the same
                     this.getGenre() == m.getGenre() && // Check fi the genre is the same
                     this.getTrailerFilePath().equals(m.getTrailerFilePath()) && // Check if the trailer is the same
+                    this.getCoverFilePath().equals(m.getCoverFilePath()) && // Check if the cover is the same
                     this.getDescription().equals(m.getDescription()) // Check if the description is the same (even if it's null)
                     );
         }
