@@ -117,7 +117,7 @@ public class FoodCourtGUI extends JFrame {
                 User.changeBalance(TotalCost.getTotalCost());
                 Arrays.fill(TotalCost.costs, 0);
                 TotalCost.totalCostInd = 0;
-                JOptionPane.showMessageDialog(null, "Balance remaining: $" + User.getBalance());
+                JOptionPane.showMessageDialog(null, "purchase successful!\nBalance remaining: $" + User.getBalance());
               }
               else {
                 JOptionPane.showMessageDialog(null, "not enough money. You only have $" + User.getBalance());
