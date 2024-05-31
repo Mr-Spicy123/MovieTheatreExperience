@@ -16,21 +16,14 @@ public class Food {
   int foodRemaining;
   String foodType;
   final int FOOD_ID;
-  //ImageIcon instance variables
-  ImageIcon imageSmall;
-  ImageIcon imageMedium;
-  ImageIcon imageLarge;
 
-  public Food(String si, String f, int sp, ImageIcon imSml, ImageIcon imMed, ImageIcon imLrg) {
+  public Food(String si, String f, int sp) {
     //can print the toString of each element to display menu on GUI
     allFood[menuIndex] = this;
     menuIndex++;
     totalFoodObj++;
     FOOD_ID = totalFoodObj;
     //set instance variables to parameters
-    imageSmall = imSml;
-    imageMedium = imMed;
-    imageLarge = imLrg;
     size = si;
     flavour = f;
     spiceLevel = sp;
@@ -38,10 +31,6 @@ public class Food {
     foodRemaining = 100;
     //objects from this class are labeled cas food
     foodType = "food";
-  }
-
-  public Food(String si, String f, int sp) {
-    this(si, f, sp, null, null, null);
   }
 
   public Food() {
