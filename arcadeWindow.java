@@ -77,6 +77,13 @@ public class arcadeWindow extends JFrame {
             }
         });
 
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                // back to rest of program
+            }
+        });
+
 
         setContentPane(background);
         setVisible(true);
