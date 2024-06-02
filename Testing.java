@@ -62,8 +62,11 @@ public class Testing extends TrailerPlayer{
         frame.setVisible(true);
 
 
+
+        Movie option = new Movie();
+        option = FSN;
         // Creating & adding the trailer video player
-        frame.add(YourName.createTrailerPlayer(), BorderLayout.CENTER);
+        frame.add(option.createTrailerPlayer(), BorderLayout.CENTER);
 
         // Repaint & revalidate to fix any rendering errors
         frame.repaint();
