@@ -1,5 +1,3 @@
-package src;
-
 import javax.swing.JFrame;
 
 public class snakeGUI extends JFrame {

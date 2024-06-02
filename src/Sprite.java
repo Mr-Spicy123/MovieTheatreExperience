@@ -1,5 +1,3 @@
-package src;
-
 public class Sprite extends Drink {
   static double price = 3.00;
 

@@ -1,5 +1,3 @@
-package src;
-
 //import statements
 import java.awt.*;
 import java.awt.event.ActionEvent;

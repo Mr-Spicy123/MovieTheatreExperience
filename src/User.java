@@ -1,5 +1,3 @@
-package src;
-
 public class User {
   private static double balance = 50;
 

@@ -1,5 +1,3 @@
-package src;
-
 public class Food {
   //class variables
   static Food[] allFood = new Food[50];

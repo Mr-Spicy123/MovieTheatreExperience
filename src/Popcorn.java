@@ -1,5 +1,3 @@
-package src;
-
 public class Popcorn extends Food {
   static double price = 6.00;
 
