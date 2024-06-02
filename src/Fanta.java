@@ -1,4 +1,4 @@
-import javax.swing.*;
+package src;
 
 public class Fanta extends Drink {
   static double price = 1.00;

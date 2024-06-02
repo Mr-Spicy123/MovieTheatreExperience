@@ -19,6 +19,7 @@ import java.io.File;
 /**
  * The movie class. Holds information such as the name, genre, length, file path, etc.
  */
+
 public class Movie {
     /**
      * {@code enum} containing the movie genre options. Access using {@code dot-operator}. Example: {@code Movie.Genres.Action}

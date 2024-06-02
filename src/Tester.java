@@ -1,3 +1,5 @@
+package src;
+
 public class Tester {
   public static void main(String[] args) {
     /*Fanta f = new Fanta(1, true, true);

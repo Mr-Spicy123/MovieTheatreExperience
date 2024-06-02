@@ -1,3 +1,5 @@
+package src;
+
 public class TotalCost {
   static int totalCostInd = 0;
   static double[] costs = new double[100];

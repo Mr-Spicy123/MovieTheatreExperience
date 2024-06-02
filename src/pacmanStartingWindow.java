@@ -1,4 +1,4 @@
-package pacman;
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class pacmanStartingWindow extends JFrame {
         setSize(800, 600); // Set window size
 
         // Create the background image
-        ImageIcon bg = new ImageIcon("BackgroundImage.jpg");
+        ImageIcon bg = new ImageIcon("Res/BackgroundImage.jpg");
         JLabel background = new JLabel(bg); // Create label to hold background image
         background.setLayout(new BorderLayout()); // Set layout to BorderLayout
 

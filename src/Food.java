@@ -1,4 +1,4 @@
-import javax.swing.*;
+package src;
 
 public class Food {
   //class variables

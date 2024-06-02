@@ -1,4 +1,4 @@
-import javax.swing.*;
+package src;
 
 public class Hotdog extends Food{
   static double price = 6.00;

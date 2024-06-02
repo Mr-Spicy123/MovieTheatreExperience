@@ -1,3 +1,4 @@
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +12,11 @@ public class FoodCourtGUI extends JFrame {
   }
 
   JLabel foodBackLabel = new JLabel();
-  ImageIcon foodCounter = new ImageIcon("Meals Interface_Sketch.png");
+  ImageIcon foodCounter = new ImageIcon("Res/Meals Interface_Sketch.png");
   JLabel drinkBackLabel = new JLabel();
-  ImageIcon drinkCounter = new ImageIcon("Drink Interface_Sketch.png");
+  ImageIcon drinkCounter = new ImageIcon("Res/Drink Interface_Sketch.png");
   JLabel optionsBackLabel = new JLabel();
-  ImageIcon options = new ImageIcon("Food Court Interface_Sketch.png");
+  ImageIcon options = new ImageIcon("Res/Food Court Interface_Sketch.png");
 
   FoodCourtGUI() {
     GridLayout Grid = new GridLayout(0, 3);

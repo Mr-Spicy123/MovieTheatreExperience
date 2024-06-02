@@ -1,9 +1,12 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 
 public class MainFrame implements ActionListener, MouseListener {
     public MainFrame(){
@@ -74,8 +77,10 @@ public class MainFrame implements ActionListener, MouseListener {
                     new MoviePanel();
                     break;
                 case "Food and drinks":
+                    new FoodCourtGUI();
                     break;
                 case "Arcade":
+                    new arcadeWindow();
                     break;
                 case "Exit":
                     System.exit(0);

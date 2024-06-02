@@ -1,4 +1,4 @@
-package pacman;
+package src;
 
 //import statements
 import java.awt.*;
@@ -102,17 +102,17 @@ public class pacmanGame extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
         setFocusable(true);
         initGame();
-        playSound("pacmanTheme.wav");
+        playSound("Res/pacmanTheme.wav");
     }
 
 
     //loads images for pacman, ghosts, and hearts
     private void loadImages() {
-        down = new ImageIcon("down.gif").getImage();
-        up = new ImageIcon("up.gif").getImage();
-        left = new ImageIcon("left.gif").getImage();
-        right = new ImageIcon("right.gif").getImage();
-        ghost = new ImageIcon("ghost.gif").getImage();
+        down = new ImageIcon("Res/down.gif").getImage();
+        up = new ImageIcon("Res/up.gif").getImage();
+        left = new ImageIcon("Res/left.gif").getImage();
+        right = new ImageIcon("Res/right.gif").getImage();
+        ghost = new ImageIcon("Res/ghost.gif").getImage();
         heart = new ImageIcon(".png").getImage();
 
     }
@@ -608,7 +608,7 @@ public class pacmanGame extends JPanel implements ActionListener {
     //method to play auido
     public void playSound(String filePath) {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("pacmanTheme.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Res/pacmanTheme.wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the sound
