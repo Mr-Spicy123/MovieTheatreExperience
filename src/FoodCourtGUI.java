@@ -200,7 +200,7 @@ public class FoodCourtGUI extends JFrame {
     optionFrame.add(optionPanel);
     optionFrame.setVisible(true);
     optionFrame.setResizable(false); // Disables the feature to resize the frame
-    optionFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     //The drinks frame
 
@@ -215,7 +215,7 @@ public class FoodCourtGUI extends JFrame {
     hotdog.setOpaque(false);
     drinkFrame.setVisible(false);
     drinkFrame.setResizable(false); // Disables the feature to resize the frame
-    drinkFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     //The food frame
 
@@ -230,7 +230,7 @@ public class FoodCourtGUI extends JFrame {
     hotdog.setOpaque(false);
     foodFrame.setVisible(false);
     foodFrame.setResizable(false); // Disables the feature to resize the frame
-    foodFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     //Food button
     JButton foodButton = new JButton();
@@ -269,6 +269,15 @@ public class FoodCourtGUI extends JFrame {
       drinkFrame.setVisible(false);
     });
 
+    JButton counterbackbutton = new JButton();
+    counterbackbutton.setBounds(12, 17, 150, 50);
+    counterbackbutton.setText("Back");
+    counterbackbutton.setOpaque(false);
+    optionFrame.add(counterbackbutton);
+    counterbackbutton.addActionListener(e -> {
+      optionFrame.setVisible(false);
+    });
+
     //the meal back button
     JButton mealBackButton = new JButton();
     mealBackButton.setBounds(12, 17, 150, 50);
@@ -282,7 +291,7 @@ public class FoodCourtGUI extends JFrame {
 
     //Option checkout button
     JButton optionsCheckoutButton = new JButton();
-    optionsCheckoutButton.setBounds(798, 55, 200, 75);
+    optionsCheckoutButton.setBounds(1000, 55, 200, 75);
     optionsCheckoutButton.setText("Checkout");
     optionsCheckoutButton.setOpaque(false);
     optionFrame.add(optionsCheckoutButton);
@@ -290,7 +299,7 @@ public class FoodCourtGUI extends JFrame {
 
     //Food checkout button
     JButton foodCheckoutButton = new JButton();
-    foodCheckoutButton.setBounds(798, 70, 200, 75);
+    foodCheckoutButton.setBounds(1000, 70, 200, 75);
     foodCheckoutButton.setText("Checkout");
     foodCheckoutButton.setOpaque(false);
     foodFrame.add(foodCheckoutButton);
@@ -298,7 +307,7 @@ public class FoodCourtGUI extends JFrame {
 
     //Dink checkout button
     JButton drinksCheckoutButton = new JButton();
-    drinksCheckoutButton.setBounds(798, 100, 200, 75);
+    drinksCheckoutButton.setBounds(1000, 100, 200, 75);
     drinksCheckoutButton.setText("Checkout");
     drinksCheckoutButton.setOpaque(false);
     drinkFrame.add(drinksCheckoutButton);
