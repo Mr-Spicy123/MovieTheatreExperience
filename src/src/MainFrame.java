@@ -9,9 +9,13 @@ import java.awt.event.MouseListener;
 
 
 public class MainFrame implements ActionListener, MouseListener {
+
+    public static Dimension frameSize = new Dimension(1280,800);
+
     public MainFrame(){
+
         JFrame frame = new JFrame();
-        frame.setSize(1280, 800);
+        frame.setSize(frameSize);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());

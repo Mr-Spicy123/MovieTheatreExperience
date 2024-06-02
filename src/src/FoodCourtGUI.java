@@ -7,9 +7,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class FoodCourtGUI extends JFrame {
-  public static void main(String[] args) {
-    new FoodCourtGUI();
-  }
+
+
 
   JLabel foodBackLabel = new JLabel();
   ImageIcon foodCounter = new ImageIcon("Res/Meals Interface_Sketch.png");
@@ -18,7 +17,7 @@ public class FoodCourtGUI extends JFrame {
   JLabel optionsBackLabel = new JLabel();
   ImageIcon options = new ImageIcon("Res/Food Court Interface_Sketch.png");
 
-  FoodCourtGUI() {
+  public FoodCourtGUI() {
     GridLayout Grid = new GridLayout(0, 3);
     GridLayout optionGrid = new GridLayout(0, 2);
     //Label
@@ -182,7 +181,8 @@ public class FoodCourtGUI extends JFrame {
     //The option frame
 
     JFrame optionFrame = new JFrame();
-    optionFrame.setBounds(100, 10, 998, 573);
+    optionFrame.setSize(MainFrame.frameSize);
+    optionFrame.setLocationRelativeTo(null);
     optionFrame.setLayout(null);
     optionFrame.add(optionsBackPanel);
     optionFrame.add(optionPanel);
@@ -193,7 +193,8 @@ public class FoodCourtGUI extends JFrame {
     //The drinks frame
 
     JFrame drinkFrame = new JFrame();
-    drinkFrame.setBounds(100, 10, 998, 573);
+    drinkFrame.setSize(MainFrame.frameSize);
+    drinkFrame.setLocationRelativeTo(null);
     drinkFrame.setLayout(null);
     drinkFrame.add(drinkBackPanel);
     drinkFrame.add(drinkPanel);
@@ -207,7 +208,8 @@ public class FoodCourtGUI extends JFrame {
     //The food frame
 
     JFrame foodFrame = new JFrame();
-    foodFrame.setBounds(100, 10, 998, 573);
+    foodFrame.setSize(MainFrame.frameSize);
+    foodFrame.setLocationRelativeTo(null);
     foodFrame.setLayout(null);
     foodFrame.add(foodBackPanel);
     foodFrame.add(mealPanel);
@@ -289,5 +291,8 @@ public class FoodCourtGUI extends JFrame {
     drinksCheckoutButton.setOpaque(false);
     drinkFrame.add(drinksCheckoutButton);
     drinksCheckoutButton.addActionListener(listener);
+  }
+  public void initButtons(JButton button){
+
   }
 }
