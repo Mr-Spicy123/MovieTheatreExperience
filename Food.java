@@ -1,6 +1,7 @@
 import javax.swing.*;
-
+import java.util.Random;
 public class Food {
+  static Random rand = new Random();
   //class variables
   static Food[] allFood = new Food[50];
   static int menuIndex = 0;
@@ -8,6 +9,7 @@ public class Food {
   //can increase amount when a button is pressed
   static int amount = 0;
   static int totalFoodObj = 0;
+  static int coupon = rand.nextInt(0, 2);
 
   //instance variables
   String size;
@@ -45,8 +47,8 @@ public class Food {
     return "ID: " + FOOD_ID + "\nFood type: " + foodType + "\nSize: " + size + "\nFlavour: " + flavour + "\nSpice level: " + spiceLevel + "\nFood remaining: " + foodRemaining;
   }
 
-  public static double Cost() {
-    return price;
+  public static double getCost() {
+    return price-coupon;
   }
 
   public void Eat() {

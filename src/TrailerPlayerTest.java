@@ -1,3 +1,4 @@
+/*
 import javafx.embed.swing.JFXPanel;
 
 import javax.swing.JFileChooser;
@@ -55,3 +56,4 @@ public class TrailerPlayerTest {
         frame.revalidate();
     }
 }
+*/

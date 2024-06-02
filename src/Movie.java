@@ -1,3 +1,4 @@
+/*
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.embed.swing.JFXPanel;
@@ -16,13 +17,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+*/
 /**
  * The movie class. Holds information such as the name, genre, length, file path, etc.
- */
+ *//*
+
 public class Movie {
-    /**
+    */
+/**
      * {@code enum} containing the movie genre options. Access using {@code dot-operator}. Example: {@code Movie.Genres.Action}
-     */
+     *//*
+
     public enum Genres {Action, Horror, Animation, UNKNOWN}
 
     // Instance variables
@@ -35,9 +40,11 @@ public class Movie {
     private String coverFilePath; // The path of the cover to display (should be from content root)
     private String description; // The developer-set description
 
-    /**
+    */
+/**
      * Creates a new Movie object with default values.
-     */
+     *//*
+
     public Movie() {
         // Chain constructor
         this(
@@ -49,14 +56,16 @@ public class Movie {
         );
     }
 
-    /**
+    */
+/**
      * Creates a new Movie object.
      * @param n The name
      * @param c The cost of the movie ticket
      * @param release The release year
      * @param duration The duration in minutes
      * @param g The genre of the movie (see {@link Movie.Genres} for selections)
-     */
+     *//*
+
     public Movie(String n, float c, int release, float duration, Genres g) {
         // Chaining constructor
         this(
@@ -70,7 +79,8 @@ public class Movie {
         );
     }
 
-    /**
+    */
+/**
      * Creates a new Movie object.
      * @param n The name
      * @param c The cost of the movie ticket
@@ -78,7 +88,8 @@ public class Movie {
      * @param duration The duration in minutes
      * @param g The genre of the movie (see {@link Movie.Genres} for selections)
      * @param path The path of the trailer video file
-     */
+     *//*
+
     public Movie(String n, float c, int release, float duration, Genres g, String path) {
         // Chaining constructor
         this(
@@ -92,7 +103,8 @@ public class Movie {
         );
     }
 
-    /**
+    */
+/**
      * Creates a new Movie object.
      * @param n The name
      * @param c The cost of the movie ticket
@@ -100,7 +112,8 @@ public class Movie {
      * @param duration The duration in minutes
      * @param g The genre of the movie (see {@link Movie.Genres} for selections)
      * @param path The path of the trailer video file
-     */
+     *//*
+
     public Movie(String n, float c, int release, float duration, Genres g, String path, String cover) {
         // Initiating/Instantiating instance variables to their corresponding parameter
         name = n;
@@ -112,156 +125,194 @@ public class Movie {
         coverFilePath = cover;
     }
 
-    /**
+    */
+/**
      * Get the name of the movie
      * @return {@code String} representing the new name of the movie.
-     */
+     *//*
+
     public String getName() {
         return name;
     }
 
-    /**
+    */
+/**
      * Set the name of the movie
      * @param n {@code String} representing the new name of the movie.
-     */
+     *//*
+
     public void setName(String n) {
         name = n;
     }
 
-    /**
+    */
+/**
      * Get the cost of the movie tickets
      * @return {@code float} Cost of each movie ticket in dollars
-     */
+     *//*
+
     public float getCost() {
         return cost;
     }
 
-    /**
+    */
+/**
      * Set the cost of the movie tickets
      * @param c {@code float} New cost of each movie ticket in dollars
-     */
+     *//*
+
     public void setCost(float c) {
         cost = c;
     }
 
-    /**
+    */
+/**
      * Get the release year of the movie
      * @return {@code int} representing the release year of the movie
-     */
+     *//*
+
     public int getReleaseYear() {
         return releaseYear;
     }
 
-    /**
+    */
+/**
      * Set the release year of the movie
      * @param release {@code int} representing the new release year of the movie
-     */
+     *//*
+
     public void setReleaseYear(int release) {
         releaseYear = release;
     }
 
-    /**
+    */
+/**
      * Get the duration of the movie in minutes
      * @return {@code float} representing the duration of the movie
-     */
+     *//*
+
     public float getMovieDurationMinutes() {
         return movieDurationMinutes;
     }
 
-    /**
+    */
+/**
      * Set the duration of the movie in minutes
      * @param duration {@code float} The new duration of the movie
-     */
+     *//*
+
     public void setMovieDurationMinutes(float duration) {
         movieDurationMinutes = duration;
     }
 
-    /**
+    */
+/**
      * Get the genre of the movie
      * @return The genre of the movie (see {@link Movie.Genres})
-     */
+     *//*
+
     public Genres getGenre() {
         return genre;
     }
 
-    /**
+    */
+/**
      * Set the genre of the movie
      * @param g The new genre of the movie (see {@link Movie.Genres})
-     */
+     *//*
+
     public void setGenre(Genres g) {
         genre = g;
     }
 
-    /**
+    */
+/**
      * Get the path of the local trailer media file.
      * @return {@code String} The file path (from content root)
-     */
+     *//*
+
     public String getTrailerFilePath() {
         return trailerFilePath;
     }
 
-    /**
+    */
+/**
      * Set the path of the local trailer media file.
      * @param path {@code String} The new file path (from content root)
-     */
+     *//*
+
     public void setTrailerFilePath(String path) {
         trailerFilePath = path;
     }
 
-    /**
+    */
+/**
      * Get the path of the local cover media file.
      * @return {@code String} The file path (from content root)
-     */
+     *//*
+
     public String getCoverFilePath() {
         return coverFilePath;
     }
 
-    /**
+    */
+/**
      * Set the path of the local cover media file.
      * @param cover {@code String} The new file path (from content root)
-     */
+     *//*
+
     public void setCoverFilePath(String cover) {
         coverFilePath = cover;
     }
 
-    /**
+    */
+/**
      * Create a swing GUI tab equipped with everything required for this movie.
      * @return {@code JPanel} The JPanel tab
-     */
+     *//*
+
     public JPanel createTrailerPlayer() {
         return new TrailerPlayer(this);
     }
 
-    /**
+    */
+/**
      * Create a swing GUI tab equipped with everything required for a movie.
      * @param m {@code Movie} Movie object
      * @return {@code JPanel} The JPanel tab
-     */
+     *//*
+
     public static JPanel createTrailerPlayer(Movie m) {
         return new TrailerPlayer(m);
     }
 
-    /**
+    */
+/**
      * Set the description of the movie. This is also what returns when {@code toString()} is called.
      * @param d {@code String} Movie description
-     */
+     *//*
+
     public void setDescription(String d) {
         description = d;
     }
 
-    /**
+    */
+/**
      * Get the description of the movie. This is also what returns when {@code toString()} is called.
      * @return {@code String} Movie description
-     */
+     *//*
+
     public String getDescription() {
         return description;
     }
 
-    /**
+    */
+/**
      * Get the description of the Movie object.
      * @return A description set by the developer using the {@code setDescription(String d)} method.
      * If no such description exists, returns a programmatically generated description.
-     */
+     *//*
+
     @Override
     public String toString() {
         if (description == null) {
@@ -275,12 +326,14 @@ public class Movie {
         }
     }
 
-    /**
+    */
+/**
      * Check if two objects share the same properties
      * @param o The object to compare
      * @return {@code true} if object o is an instance of {@link Movie}, and shares the same properties of this Movie object.
      * {@code false} if either of the conditions doesn't apply.
-     */
+     *//*
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof Movie m) { // Checking if o is an instance of Movie, and parsing to Movie object
@@ -335,9 +388,11 @@ class TrailerPlayer extends JPanel implements ActionListener {
         init();
     }
 
-    /**
+    */
+/**
      * Build the UI
-     */
+     *//*
+
     public void init() {
         // Configure JPanel
         setBackground(Color.BLACK);
@@ -493,9 +548,11 @@ class TrailerPlayer extends JPanel implements ActionListener {
         add(statusLabel, BorderLayout.NORTH);
     }
 
-    /**
+    */
+/**
      * Starts the media player and adds the required listeners to the required components.
-     */
+     *//*
+
     private void initPlayer() {
         slideBar.setMinimum(0);
         slideBar.setMaximum(millisToSlideBarValue((int) player.getTotalDuration().toMillis()));
@@ -520,9 +577,11 @@ class TrailerPlayer extends JPanel implements ActionListener {
         ready = true; // Flag the TrailerPlayer as ready-to-play
     }
 
-    /**
+    */
+/**
      * Programmatically pause the video
-     */
+     *//*
+
     public void pause() {
         paused = true;
         pauseButton.setText(PLAY_TEXT);
@@ -530,9 +589,11 @@ class TrailerPlayer extends JPanel implements ActionListener {
         player.pause();
     }
 
-    /**
+    */
+/**
      * Programmatically play the video
-     */
+     *//*
+
     public void play() {
         paused = false;
         pauseButton.setText(PAUSE_TEXT);
@@ -540,37 +601,45 @@ class TrailerPlayer extends JPanel implements ActionListener {
         player.play();
     }
 
-    /**
+    */
+/**
      * Programmatically stop the video
-     */
+     *//*
+
     public void stop() {
         pause();
         slideBar.setValue(0);
         player.seek(Duration.ZERO);
     }
 
-    /**
+    */
+/**
      * Programmatically close the video
-     */
+     *//*
+
     public void close() {
         setVisible(false);
         player.dispose();
     }
 
-    /**
+    */
+/**
      * Convert milliseconds to slide bar value
      * @param millis The milliseconds to convert
      * @return Slide bar value
-     */
+     *//*
+
     public int millisToSlideBarValue(int millis) {
         return (millis/100);
     }
 
-    /**
+    */
+/**
      * Convert slide bar value into milliseconds
      * @param slideBarValue The value to convert
      * @return Milliseconds
-     */
+     *//*
+
     public int slideBarValueToMillis(int slideBarValue) {
         return (slideBarValue*100);
     }
@@ -621,4 +690,4 @@ class TrailerPlayer extends JPanel implements ActionListener {
             repaint(); // Repaint to fix any rendering issues
         }
     }
-}
+}*/

@@ -83,32 +83,32 @@ public class FoodCourtGUI extends JFrame {
           switch (button.getText()) {
             //whatever the text of the button is set to is how it determines the button
             case "popcorn":
-              TotalCost.addCost(Popcorn.price);
+              TotalCost.addCost(Popcorn.getCost());
               TotalCost.print();
               JOptionPane.showMessageDialog(null, "Added popcorn to cart");
               break;
             case "nachos":
-              TotalCost.addCost(Nachos.price);
+              TotalCost.addCost(Nachos.getCost());
               TotalCost.print();
               JOptionPane.showMessageDialog(null, "Added nachos to cart");
               break;
             case "hotdog":
-              TotalCost.addCost(Hotdog.price);
+              TotalCost.addCost(Hotdog.getCost());
               TotalCost.print();
               JOptionPane.showMessageDialog(null, "Added hotdog to cart");
               break;
             case "Coke":
-              TotalCost.addCost(CocaCola.price);
+              TotalCost.addCost(CocaCola.getCost());
               TotalCost.print();
               JOptionPane.showMessageDialog(null, "Added CocaCola to cart");
               break;
             case "Sprite":
-              TotalCost.addCost(Sprite.price);
+              TotalCost.addCost(Sprite.getCost());
               TotalCost.print();
               JOptionPane.showMessageDialog(null, "Added Sprite to cart");
               break;
             case "Fanta":
-              TotalCost.addCost(Fanta.price);
+              TotalCost.addCost(Fanta.getCost());
               TotalCost.print();
               JOptionPane.showMessageDialog(null, "Added Fanta to cart");
               break;
