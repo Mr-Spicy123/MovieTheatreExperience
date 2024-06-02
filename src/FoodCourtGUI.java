@@ -14,51 +14,65 @@ public class FoodCourtGUI extends JFrame {
   ImageIcon drinkCounter = new ImageIcon("Res/Drink Interface_Sketch.png");
   JLabel optionsBackLabel = new JLabel();
   ImageIcon options = new ImageIcon("Res/Food Court Interface_Sketch.png");
+  Image optionsimage = options.getImage();
+  Image drinkCounterimage = drinkCounter.getImage();
+  Image foodCounterimage = foodCounter.getImage();
 
   public FoodCourtGUI() {
     GridLayout Grid = new GridLayout(0, 3);
     GridLayout optionGrid = new GridLayout(0, 2);
     //Label
-    foodBackLabel.setIcon(foodCounter);
-    drinkBackLabel.setIcon(drinkCounter);
-    optionsBackLabel.setIcon(options);
 
+    int width = 1280; // New width for the scaled image
+    int height = 770; // New height for the scaled image
+    Image scaledImage = optionsimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+    Image scaledImage2 = drinkCounterimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+    ImageIcon scaledIcon2 = new ImageIcon(scaledImage2);
+
+    Image scaledImage3 = foodCounterimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+    ImageIcon scaledIcon3 = new ImageIcon(scaledImage3);
+
+    foodBackLabel.setIcon(scaledIcon3);
+    optionsBackLabel.setIcon(scaledIcon);
+    drinkBackLabel.setIcon(scaledIcon2);
     //Panel
 
     // The Food Back panel
     JPanel foodBackPanel = new JPanel();
     foodBackPanel.add(foodBackLabel);
-    foodBackPanel.setBounds(0, 0, 998, 573);
+    foodBackPanel.setBounds(0, 0, 1280, 800);
 
     JPanel drinkBackPanel = new JPanel();
     drinkBackPanel.add(drinkBackLabel);
-    drinkBackPanel.setBounds(0, 0, 998, 573);
+    drinkBackPanel.setBounds(0, 0, 1280, 800);
 
     JPanel optionsBackPanel = new JPanel();
     optionsBackPanel.add(optionsBackLabel);
-    optionsBackPanel.setBounds(0, 0, 998, 573);
+    optionsBackPanel.setBounds(0, 0, 1280, 800);
 
     //Order Panel
     JPanel optionPanel = new JPanel();
-    optionPanel.setBounds(0, 200, 997, 373);
+    optionPanel.setBounds(0, 200, 1280, 800);
     optionPanel.setOpaque(false);
     optionPanel.setLayout(optionGrid);
 
     //Drinks option Panel
     JPanel drinkPanel = new JPanel();
-    drinkPanel.setBounds(0, 200, 997, 373);
+    drinkPanel.setBounds(0, 200, 1280, 800);
     drinkPanel.setOpaque(false);
     drinkPanel.setLayout(Grid);
 
     //Meal option Panel
     JPanel mealPanel = new JPanel();
-    mealPanel.setBounds(0, 200, 997, 373);
+    mealPanel.setBounds(0, 200, 1280, 800);
     mealPanel.setOpaque(false);
     mealPanel.setLayout(Grid);
 
     //Food Panel
     JPanel foodPanel = new JPanel();
-    foodPanel.setBounds(0, 0, 998, 573);
+    foodPanel.setBounds(0, 0, 1280, 800);
     foodPanel.setBackground(Color.gray);
 
     // The Order List Panel
