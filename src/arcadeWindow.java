@@ -3,13 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class arcadeWindow extends JFrame {
+public class arcadeWindow extends JFrame implements ActionListener{
 
     public arcadeWindow() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(MainFrame.frameSize);
         setLocationRelativeTo(null);
+        this.setVisible(true);
 
         ImageIcon bg = new ImageIcon("Arcade.png");
         JLabel background = new JLabel(bg);
@@ -56,33 +57,11 @@ public class arcadeWindow extends JFrame {
         background.add(topPanel, BorderLayout.NORTH);
         background.add(centerPanel, BorderLayout.CENTER);
 
-        pacman.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                // open pacman game
-            }
-        });
+        backButton.addActionListener(this) ;
+        pacman.addActionListener(this) ;
+        spaceInvader.addActionListener(this) ;
+        snakeButton.addActionListener(this) ;
 
-        spaceInvader.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                // open space invader game
-            }
-        });
-
-        snakeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                // open snake game
-            }
-        });
-
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                // back to rest of program
-            }
-        });
 
 
         setContentPane(background);
@@ -96,6 +75,27 @@ public class arcadeWindow extends JFrame {
         return button;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() instanceof JButton){
+            JButton clickedButton = (JButton) e.getSource();
+            String text = clickedButton.getText();
+            switch (text){
+                case "Movies":
+                    new MoviePanel();
+                    break;
+                case "Food and drinks":
+                    new FoodCourtGUI();
+                    break;
+                case "Arcade":
+                    new arcadeWindow();
+                    break;
+                case "Exit":
+                    System.exit(0);
+                    break;
+            }
+        }
+    }
 }
 
 
