@@ -291,7 +291,7 @@ public class FoodCourtGUI extends JFrame {
 
     //Option checkout button
     JButton optionsCheckoutButton = new JButton();
-    optionsCheckoutButton.setBounds(798, 55, 200, 75);
+    optionsCheckoutButton.setBounds(1000, 55, 200, 75);
     optionsCheckoutButton.setText("Checkout");
     optionsCheckoutButton.setOpaque(false);
     optionFrame.add(optionsCheckoutButton);
@@ -299,7 +299,7 @@ public class FoodCourtGUI extends JFrame {
 
     //Food checkout button
     JButton foodCheckoutButton = new JButton();
-    foodCheckoutButton.setBounds(798, 70, 200, 75);
+    foodCheckoutButton.setBounds(1000, 70, 200, 75);
     foodCheckoutButton.setText("Checkout");
     foodCheckoutButton.setOpaque(false);
     foodFrame.add(foodCheckoutButton);
@@ -307,7 +307,7 @@ public class FoodCourtGUI extends JFrame {
 
     //Dink checkout button
     JButton drinksCheckoutButton = new JButton();
-    drinksCheckoutButton.setBounds(798, 100, 200, 75);
+    drinksCheckoutButton.setBounds(1000, 100, 200, 75);
     drinksCheckoutButton.setText("Checkout");
     drinksCheckoutButton.setOpaque(false);
     drinkFrame.add(drinksCheckoutButton);
