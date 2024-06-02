@@ -1,3 +1,5 @@
+package src;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.embed.swing.JFXPanel;
@@ -284,7 +286,8 @@ public class Movie {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Movie m) { // Checking if o is an instance of Movie, and parsing to Movie object
+        if (o instanceof Movie) { // Checking if o is an instance of Movie, and parsing to Movie object
+            Movie m = (Movie) o;
             return (this.getName().equals(m.getName()) && // Check if the name is the same
                     this.getCost() == m.getCost() && // Check if cost is the same
                     this.getReleaseYear() == m.getReleaseYear() && // Check if release year is the same

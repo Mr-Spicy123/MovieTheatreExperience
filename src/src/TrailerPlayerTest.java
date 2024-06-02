@@ -1,3 +1,5 @@
+package src;
+
 import javafx.embed.swing.JFXPanel;
 
 import javax.swing.JFileChooser;

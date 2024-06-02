@@ -23,7 +23,7 @@ public class MoviePanel implements MouseListener, ActionListener {
         frame.setSize(1280, 800);
         frame.setLocationRelativeTo(null);
 
-        bGlabel = new JLabel(new ImageIcon(getClass().getResource("brickwall.jpg")));
+        bGlabel = new JLabel(new ImageIcon(getClass().getResource("Res/brickwall.jpg")));
         bGlabel.setBounds(0, 0, 1280, 800);
         frame.add(bGlabel);
 
