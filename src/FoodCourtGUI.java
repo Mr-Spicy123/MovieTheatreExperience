@@ -200,7 +200,7 @@ public class FoodCourtGUI extends JFrame {
     optionFrame.add(optionPanel);
     optionFrame.setVisible(true);
     optionFrame.setResizable(false); // Disables the feature to resize the frame
-    optionFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     //The drinks frame
 
@@ -215,7 +215,7 @@ public class FoodCourtGUI extends JFrame {
     hotdog.setOpaque(false);
     drinkFrame.setVisible(false);
     drinkFrame.setResizable(false); // Disables the feature to resize the frame
-    drinkFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     //The food frame
 
@@ -230,7 +230,7 @@ public class FoodCourtGUI extends JFrame {
     hotdog.setOpaque(false);
     foodFrame.setVisible(false);
     foodFrame.setResizable(false); // Disables the feature to resize the frame
-    foodFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     //Food button
     JButton foodButton = new JButton();
@@ -267,6 +267,15 @@ public class FoodCourtGUI extends JFrame {
     drinksBackButton.addActionListener(e -> {
       optionFrame.setVisible(true);
       drinkFrame.setVisible(false);
+    });
+
+    JButton counterbackbutton = new JButton();
+    counterbackbutton.setBounds(12, 17, 150, 50);
+    counterbackbutton.setText("Back");
+    counterbackbutton.setOpaque(false);
+    optionFrame.add(counterbackbutton);
+    counterbackbutton.addActionListener(e -> {
+      optionFrame.setVisible(false);
     });
 
     //the meal back button
