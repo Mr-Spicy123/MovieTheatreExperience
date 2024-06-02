@@ -5,6 +5,6 @@ public class Tester {
     TotalCost.addCost(25);
     TotalCost.addCost(25);
     System.out.println(TotalCost.getTotalCost());*/
-    GUI g = new GUI();
+    FoodCourtGUI g = new FoodCourtGUI();
   }
 }

@@ -4,10 +4,6 @@ public class Fanta extends Drink {
   static double price = 1.00;
   static int coupon = rand.nextInt(0,2);
 
-  public static double getCost() {
-    return price-coupon;
-  }
-
   public Fanta(int si, boolean i, boolean st) {
     super(si, i, st);
   }
@@ -15,4 +11,9 @@ public class Fanta extends Drink {
   public Fanta() {
     this(0, false, false);
   }
+
+  public static double getCost() {
+    return price-coupon;
+  }
+
 }

@@ -12,7 +12,7 @@ public class CocaCola extends Drink {
     this(0, false, false);
   }
 
-  /*public static double getCost() {
+  public static double getCost() {
     return price-coupon;
-  }*/
+  }
 }
