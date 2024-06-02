@@ -64,7 +64,6 @@ public class Testing extends TrailerPlayer{
 
 
         Movie option = new Movie();
-        option = FSN;
         // Creating & adding the trailer video player
         frame.add(option.createTrailerPlayer(), BorderLayout.CENTER);
 
