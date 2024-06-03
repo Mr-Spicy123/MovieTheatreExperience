@@ -148,14 +148,6 @@ public class MovieInfoGui extends JFrame {
     }
 
     public static void main(String[] args) {
-        new MovieInfoGui(new Movie(
-                "Mission Impossible - Fallout",
-                15f,
-                2018,
-                100f,
-                Movie.Genres.Action,
-                "MissionImpossible-Fallout.mp4",
-                ""
-        ));
+        new MovieInfoGui(RegisteredMovies.Horror.A_QUIET_PLACE);
     }
 }

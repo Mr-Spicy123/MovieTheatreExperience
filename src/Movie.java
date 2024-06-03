@@ -82,8 +82,9 @@ public class Movie {
      * @param duration The duration in minutes
      * @param g The genre of the movie (see {@link Movie.Genres} for selections)
      * @param path The path of the trailer video file
+     * @param desc The description
      */
-    public Movie(String n, float c, int release, float duration, Genres g, String path, String cover) {
+    public Movie(String n, float c, int release, float duration, Genres g, String path, String desc) {
         // Initiating/Instantiating instance variables to their corresponding parameter
         name = n;
         cost = c;
@@ -91,7 +92,7 @@ public class Movie {
         movieDurationMinutes = duration;
         genre = g;
         trailerFilePath = path;
-        coverFilePath = cover;
+        description = desc;
     }
 
     /**
