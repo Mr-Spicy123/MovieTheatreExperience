@@ -75,7 +75,7 @@ import java.io.File;
             // Configure JFrame
             this.setSize(MainFrame.frameSize);
             this.setLocationRelativeTo(null);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setLayout(new BorderLayout());
             this.setVisible(true);
             this.add(tPanel);
