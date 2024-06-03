@@ -99,8 +99,8 @@ public class arcadeWindow extends JFrame implements ActionListener {
                 case "Pacman":
                     new pacmanStartingWindow();
                     break;
-                case "Space Invader":
-
+                case "Snake Game":
+                    new snakeGUI();
                     break;
                 case "Back":
                     System.out.println("yes");
@@ -110,7 +110,6 @@ public class arcadeWindow extends JFrame implements ActionListener {
         }
     }
 }
-
 
 
 
