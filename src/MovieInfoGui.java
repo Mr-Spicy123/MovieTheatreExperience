@@ -2,15 +2,18 @@ import javafx.application.Platform;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class MovieInfoGui extends JFrame implements WindowListener {
+public class MovieInfoGui extends JFrame implements WindowListener, ActionListener {
     private final Movie movie;
     private final JPanel contentPanel, topPanel, centerPanel, infoPanel;
-    private final JLabel topLabel, infoText;
+    private final JLabel infoText;
     private final JScrollPane infoScrollPane;
     private final TrailerPlayer trailerPlayer;
+    private final JButton backButton;
 
     private final BorderLayout frameLayout, contentLayout;
     private final GridLayout topLayout, centerLayout, infoLayout;
@@ -59,15 +62,15 @@ public class MovieInfoGui extends JFrame implements WindowListener {
                 super.paint(g);
             }
         };
-        topLabel = new JLabel();
         infoText = new JLabel();
         infoScrollPane = new JScrollPane();
+        backButton = new JButton();
 
         refresh();
 
 //        infoScrollPane.add(infoText);
         infoPanel.add(infoScrollPane);
-        topPanel.add(topLabel);
+        topPanel.add(backButton);
         contentPanel.add(centerPanel, BorderLayout.CENTER);
         contentPanel.add(topPanel, BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
@@ -87,17 +90,20 @@ public class MovieInfoGui extends JFrame implements WindowListener {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         setName("MovieDisplay");
+        setUndecorated(true);
+        setResizable(false);
         setTitle("Movie Viewer (" + movie.getName() + ")");
         setLayout(frameLayout);
         setBackground(new Color(0, 0, 0));
         getContentPane().setBackground(new Color(0, 0, 0, 0));
-        setSize((int)(screenSize.getWidth()*0.75), (int)(screenSize.getHeight() * 0.5));
+        setSize(1280, 800);
         setFocusable(true);
         setAlwaysOnTop(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setAutoRequestFocus(true);
         setType(Type.UTILITY);
-        setLocation((screenSize.width/2) - (getWidth()/2), (screenSize.height/2) - (getHeight()/2));
+        setLocationRelativeTo(null);
+//        setLocation((screenSize.width/2) - (getWidth()/2), (screenSize.height/2) - (getHeight()/2));
 
         contentPanel.setName("ContentPanel");
         contentPanel.setBackground(Color.BLACK);
@@ -126,15 +132,15 @@ public class MovieInfoGui extends JFrame implements WindowListener {
         infoPanel.setLayout(infoLayout);
         infoPanel.setBackground(Color.WHITE);
 
-        topLabel.setName("TopLabel");
-        topLabel.setText(movie.getName() + " (" + movie.getReleaseYear() + ")");
-        topLabel.setFocusable(false);
-        topLabel.setBackground(Color.BLACK);
-        topLabel.setForeground(Color.WHITE);
-        topLabel.setFont(new Font("Arial", Font.BOLD, (int)(screenSize.getHeight()/35)));
-        topLabel.setBorder(null);
-        topLabel.setHorizontalAlignment(JLabel.CENTER);
-        topLabel.setOpaque(true);
+//        topLabel.setName("TopLabel");
+//        topLabel.setText(movie.getName() + " (" + movie.getReleaseYear() + ")");
+//        topLabel.setFocusable(false);
+//        topLabel.setBackground(Color.BLACK);
+//        topLabel.setForeground(Color.WHITE);
+//        topLabel.setFont(new Font("Arial", Font.BOLD, (int)(screenSize.getHeight()/35)));
+//        topLabel.setBorder(null);
+//        topLabel.setHorizontalAlignment(JLabel.CENTER);
+//        topLabel.setOpaque(true);
 
         infoText.setName("TopLabel");
         infoText.setText("<html>" + // Set text using HTML formatting
@@ -159,6 +165,14 @@ public class MovieInfoGui extends JFrame implements WindowListener {
         infoScrollPane.setBackground(new Color(0, 0, 0, 0));
         infoScrollPane.getViewport().setBackground(new Color(0, 0,0 ,0));
         infoScrollPane.setViewportView(infoText);
+
+        backButton.setName("BackButton");
+        backButton.setText("Back To Movies");
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusable(false);
+        backButton.addActionListener(this);
+        backButton.setFont(new Font("Arial", Font.BOLD, (int)(screenSize.getHeight()/35)));
 
         revalidate();
     }
@@ -189,4 +203,11 @@ public class MovieInfoGui extends JFrame implements WindowListener {
 
     @Override
     public void windowDeactivated(WindowEvent e) {}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(backButton)) {
+            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
+    }
 }
