@@ -9,34 +9,10 @@ import java.awt.event.MouseListener;
 
 //Plan is to add images to the labels then make the buttons transparent
 public class MoviePanel implements MouseListener, ActionListener{
-
-
-
-    //film data
-    int cost = 10;
-    private final Movie YourName = new Movie("Your Name", cost, 2016, 107, Movie.Genres.Animation, "Res/Trailers/YourName (2).mp4", "Unknown");
-    private final Movie MIB = new Movie("Mission impossible: fall out", cost, 2018, 147, Movie.Genres.Action, "Res/Trailers/Mission_ Impossible - Fallout (2018) - Official Trailer - Paramount Pictures.mp4", "Unknown");
-    private final Movie StarWars = new Movie("Star Wars: Revenge of the Sith", cost, 2005, 140, Movie.Genres.Action, "Res/Trailers/Star Wars_ Episode III - Revenge of the Sith (2005) Trailer #1 _ Movieclips Classic Trailers.mp4", "Unknown");
-    private final Movie EndGame = new Movie("Avengers: End Game", cost, 2019, 182, Movie.Genres.Action, "Res/Trailers/Marvel Studios' Avengers - Official Trailer.mp4", "Unknown");
-    private final Movie IT = new Movie("It", cost, 2017, 135, Movie.Genres.Horror, "Res/Trailers/It Trailer #1 (2017) _ Movieclips Trailers.mp4", "Unknown");
-    private final Movie AQP = new Movie("A Quiet Place", cost, 2018, 90, Movie.Genres.Horror, "Res/Trailers/A QUIET PLACE _ Official Trailer _ Paramount Movies.mp4", "Unknown");
-    private final Movie Shining = new Movie("The Shining", cost, 1980, 136, Movie.Genres.Horror, "Res/Trailers/shining.mp4", "Unknown");
-    private final Movie FSN = new Movie("Fate/stay night: Heaven's Feel I. presage flow", cost, 2017, 120, Movie.Genres.Animation, "Res/Trailers/FSNHF1.mp4", "Unknown");
-    private final Movie Suzume = new Movie("Suzume", cost, 2022, 122, Movie.Genres.Animation, "Res/Trailers/Suzume.mp4", "Unknown");
-
-
-
-
     private JFrame frame;
     private JLabel bGlabel, title, selectGenre;
     private JButton backButton, button1, button2, button3, button4, button5, button6, button7, button8, button9,  genre1, genre2, genre3;
     int page;
-
-
-    public static void main(String [] args){
-        new MoviePanel();
-    }
-
 
     public MoviePanel() {
         setPage();
@@ -195,15 +171,15 @@ public class MoviePanel implements MouseListener, ActionListener{
                     bGlabel.add(button9);
             }
 
-            if (e.getSource() == button1){ new TrailerPlayer(IT);}
-            if (e.getSource() == button2){ new TrailerPlayer(AQP);}
-            if (e.getSource() == button3){ new TrailerPlayer(Shining);}
-            if (e.getSource() == button4){ new TrailerPlayer(MIB);}
-            if (e.getSource() == button5){ new TrailerPlayer(StarWars);}
-            if (e.getSource() == button6){ new TrailerPlayer(EndGame);}
-            if (e.getSource() == button7){ new TrailerPlayer(YourName);}
-            if (e.getSource() == button8){ new TrailerPlayer(FSN);}
-            if (e.getSource() == button9){ new TrailerPlayer(Suzume);}
+            if (e.getSource() == button1){ new MovieInfoGui(RegisteredMovies.Horror.IT);}
+            if (e.getSource() == button2){ new MovieInfoGui(RegisteredMovies.Horror.A_QUIET_PLACE);}
+            if (e.getSource() == button3){ new MovieInfoGui(RegisteredMovies.Horror.SHINING);}
+            if (e.getSource() == button4){ new MovieInfoGui(RegisteredMovies.Action.MISSION_IMPOSSIBLE);}
+            if (e.getSource() == button5){ new MovieInfoGui(RegisteredMovies.Action.STAR_WARS);}
+            if (e.getSource() == button6){ new MovieInfoGui(RegisteredMovies.Action.AVENGERS_END_GAME);}
+            if (e.getSource() == button7){ new MovieInfoGui(RegisteredMovies.Animation.YOUR_NAME);}
+            if (e.getSource() == button8){ new MovieInfoGui(RegisteredMovies.Animation.FATE);}
+            if (e.getSource() == button9){ new MovieInfoGui(RegisteredMovies.Animation.SUZUME);}
         }
     }
 }

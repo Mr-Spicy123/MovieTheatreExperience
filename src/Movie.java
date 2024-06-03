@@ -1,28 +1,9 @@
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.stage.Screen;
-import javafx.util.Duration;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
 /**
  * The movie class. Holds information such as the name, genre, length, file path, etc.
  */
-
 public class Movie {
     /**
-     * {@code enum} containing the movie genre options. Access using {@code dot-operator}. Example: {@code Movie.Genres.Action}
+     * {@code enum} containing the movie genre options. Access using {@code dot-operator}. Example: {@code GUI.Movies.Movie.Genres.Action}
      */
     public enum Genres {Action, Horror, Animation, UNKNOWN}
 
@@ -37,7 +18,7 @@ public class Movie {
     private String description; // The developer-set description
 
     /**
-     * Creates a new Movie object with default values.
+     * Creates a new GUI.Movies.Movie object with default values.
      */
     public Movie() {
         // Chain constructor
@@ -51,7 +32,7 @@ public class Movie {
     }
 
     /**
-     * Creates a new Movie object.
+     * Creates a new GUI.Movies.Movie object.
      * @param n The name
      * @param c The cost of the movie ticket
      * @param release The release year
@@ -72,7 +53,7 @@ public class Movie {
     }
 
     /**
-     * Creates a new Movie object.
+     * Creates a new GUI.Movies.Movie object.
      * @param n The name
      * @param c The cost of the movie ticket
      * @param release The release year
@@ -94,15 +75,16 @@ public class Movie {
     }
 
     /**
-     * Creates a new Movie object.
+     * Creates a new GUI.Movies.Movie object.
      * @param n The name
      * @param c The cost of the movie ticket
      * @param release The release year
      * @param duration The duration in minutes
      * @param g The genre of the movie (see {@link Movie.Genres} for selections)
      * @param path The path of the trailer video file
+     * @param desc The description
      */
-    public Movie(String n, float c, int release, float duration, Genres g, String path, String cover) {
+    public Movie(String n, float c, int release, float duration, Genres g, String path, String desc) {
         // Initiating/Instantiating instance variables to their corresponding parameter
         name = n;
         cost = c;
@@ -110,7 +92,7 @@ public class Movie {
         movieDurationMinutes = duration;
         genre = g;
         trailerFilePath = path;
-        coverFilePath = cover;
+        description = desc;
     }
 
     /**
@@ -229,22 +211,22 @@ public class Movie {
      * Create a swing GUI tab equipped with everything required for this movie.
      * @return {@code JPanel} The JPanel tab
      */
-    public JFrame createTrailerPlayer() {
+    public TrailerPlayer createTrailerPlayer() {
         return new TrailerPlayer(this);
     }
 
     /**
      * Create a swing GUI tab equipped with everything required for a movie.
-     * @param m {@code Movie} Movie object
+     * @param m {@code GUI.Movies.Movie} GUI.Movies.Movie object
      * @return {@code JPanel} The JPanel tab
      */
-    public static JFrame createTrailerPlayer(Movie m) {
+    public static TrailerPlayer createTrailerPlayer(Movie m) {
         return new TrailerPlayer(m);
     }
 
     /**
      * Set the description of the movie. This is also what returns when {@code toString()} is called.
-     * @param d {@code String} Movie description
+     * @param d {@code String} GUI.Movies.Movie description
      */
     public void setDescription(String d) {
         description = d;
@@ -252,14 +234,14 @@ public class Movie {
 
     /**
      * Get the description of the movie. This is also what returns when {@code toString()} is called.
-     * @return {@code String} Movie description
+     * @return {@code String} GUI.Movies.Movie description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Get the description of the Movie object.
+     * Get the description of the GUI.Movies.Movie object.
      * @return A description set by the developer using the {@code setDescription(String d)} method.
      * If no such description exists, returns a programmatically generated description.
      */
@@ -279,13 +261,12 @@ public class Movie {
     /**
      * Check if two objects share the same properties
      * @param o The object to compare
-     * @return {@code true} if object o is an instance of {@link Movie}, and shares the same properties of this Movie object.
+     * @return {@code true} if object o is an instance of {@link Movie}, and shares the same properties of this GUI.Movies.Movie object.
      * {@code false} if either of the conditions doesn't apply.
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Movie) { // Checking if o is an instance of Movie, and parsing to Movie object
-            Movie m = (Movie) o;
+        if (o instanceof Movie m) { // Checking if o is an instance of GUI.Movies.Movie, and parsing to GUI.Movies.Movie object
             return (this.getName().equals(m.getName()) && // Check if the name is the same
                     this.getCost() == m.getCost() && // Check if cost is the same
                     this.getReleaseYear() == m.getReleaseYear() && // Check if release year is the same
@@ -294,10 +275,8 @@ public class Movie {
                     this.getTrailerFilePath().equals(m.getTrailerFilePath()) && // Check if the trailer is the same
                     this.getCoverFilePath().equals(m.getCoverFilePath()) && // Check if the cover is the same
                     this.getDescription().equals(m.getDescription()) // Check if the description is the same (even if it's null)
-                    );
+            );
         }
         return false; // Return false by default if o isn't a movie.
     }
 }
-
-
