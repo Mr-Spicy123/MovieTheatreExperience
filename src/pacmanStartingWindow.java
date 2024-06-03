@@ -20,9 +20,11 @@ public class pacmanStartingWindow extends JFrame {
         backButton.setPreferredSize(new Dimension(120, 40));
         backButton.setBackground(new Color(255, 158, 212));
 
+
         JButton startButton = new JButton("Start");
         startButton.setPreferredSize(new Dimension(120, 40));
         startButton.setBackground(new Color(58, 86, 237));
+
 
         // Create panel to hold the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -48,13 +50,14 @@ public class pacmanStartingWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //code to ArcadeWindow
+                setVisible(false); // Make window visible
             }
         });
-
-
         background.add(buttonPanel, BorderLayout.SOUTH);
         setContentPane(background); // Set background as content pane
         setVisible(true); // Make window visible
+
+
     }
 }
 
