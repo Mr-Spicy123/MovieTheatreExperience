@@ -195,15 +195,15 @@ public class MoviePanel implements MouseListener, ActionListener{
                     bGlabel.add(button9);
             }
 
-            if (e.getSource() == button1){ new TrailerPlayerFrame(IT.createTrailerPlayer());}
-            if (e.getSource() == button2){ new TrailerPlayerFrame(AQP.createTrailerPlayer());}
-            if (e.getSource() == button3){ new TrailerPlayerFrame(Shining.createTrailerPlayer());}
-            if (e.getSource() == button4){ new TrailerPlayerFrame(MIB.createTrailerPlayer());}
-            if (e.getSource() == button5){ new TrailerPlayerFrame(StarWars.createTrailerPlayer());}
-            if (e.getSource() == button6){ new TrailerPlayerFrame(EndGame.createTrailerPlayer());}
-            if (e.getSource() == button7){ new TrailerPlayerFrame(YourName.createTrailerPlayer());}
-            if (e.getSource() == button8){ new TrailerPlayerFrame(FSN.createTrailerPlayer());}
-            if (e.getSource() == button9){ new TrailerPlayerFrame(Suzume.createTrailerPlayer());}
+            if (e.getSource() == button1){ new TrailerPlayer(IT);}
+            if (e.getSource() == button2){ new TrailerPlayer(AQP);}
+            if (e.getSource() == button3){ new TrailerPlayer(Shining);}
+            if (e.getSource() == button4){ new TrailerPlayer(MIB);}
+            if (e.getSource() == button5){ new TrailerPlayer(StarWars);}
+            if (e.getSource() == button6){ new TrailerPlayer(EndGame);}
+            if (e.getSource() == button7){ new TrailerPlayer(YourName);}
+            if (e.getSource() == button8){ new TrailerPlayer(FSN);}
+            if (e.getSource() == button9){ new TrailerPlayer(Suzume);}
         }
     }
 }

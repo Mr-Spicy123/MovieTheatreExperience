@@ -229,7 +229,7 @@ public class Movie {
      * Create a swing GUI tab equipped with everything required for this movie.
      * @return {@code JPanel} The JPanel tab
      */
-    public JPanel createTrailerPlayer() {
+    public JFrame createTrailerPlayer() {
         return new TrailerPlayer(this);
     }
 
@@ -238,7 +238,7 @@ public class Movie {
      * @param m {@code Movie} Movie object
      * @return {@code JPanel} The JPanel tab
      */
-    public static JPanel createTrailerPlayer(Movie m) {
+    public static JFrame createTrailerPlayer(Movie m) {
         return new TrailerPlayer(m);
     }
 

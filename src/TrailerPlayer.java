@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class TrailerPlayerFrame extends JFrame {
+/*public class TrailerPlayerFrame extends JFrame {
     public TrailerPlayerFrame (JPanel trailerPlayer){
         JFrame frame = new JFrame();
         frame.setSize(MainFrame.frameSize);
@@ -27,13 +27,13 @@ public class TrailerPlayerFrame extends JFrame {
         frame.setVisible(true);
 
     }
-}
-    class TrailerPlayer extends JPanel implements ActionListener {
+}*/
+    class TrailerPlayer extends JFrame implements ActionListener {
         public static final String PAUSE_TEXT = "||";
         public static final String PLAY_TEXT =  ">";
 
         private final Movie movie;
-        private final JPanel view, bottomBar, screen;
+        private final JPanel view, bottomBar, tPanel;
         private final JButton pauseButton, backButton;
         private final JSlider slideBar;
         private final JLabel timeLabel, statusLabel;
@@ -54,7 +54,7 @@ public class TrailerPlayerFrame extends JFrame {
             ready = false;
 
             // Creating components
-            screen = new JPanel();
+            tPanel = new JPanel();
             view = new JPanel();
             bottomBar = new JPanel();
             pauseButton = new JButton();
@@ -72,13 +72,23 @@ public class TrailerPlayerFrame extends JFrame {
          * Build the UI
          */
         public void init() {
+            // Configure JFrame
+            this.setSize(MainFrame.frameSize);
+            this.setLocationRelativeTo(null);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setLayout(new BorderLayout());
+            this.setVisible(true);
+            this.add(tPanel);
+            this.add(view);
+            this.add(bottomBar);
+
             // Configure JPanel
-            setBackground(Color.BLACK);
-            setName("TrailerPlayer (" + movie.getName() + ")");
-            setLayout(new BorderLayout());
-            setBackground(new Color(0, 0, 0));
-            setBorder(BorderFactory.createLineBorder(Color.WHITE));
-            setFocusable(false);
+            tPanel.setBackground(Color.BLACK);
+            tPanel.setName("TrailerPlayer (" + movie.getName() + ")");
+            tPanel.setLayout(new BorderLayout());
+            tPanel.setBackground(new Color(0, 0, 0));
+            tPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            tPanel.setFocusable(false);
 
             // Configure view
             view.setName("View");
@@ -314,7 +324,7 @@ public class TrailerPlayerFrame extends JFrame {
         public void close() {
             setVisible(false);
             player.dispose();
-            TrailerPlayerFrame.close();
+            this.dispose();
         }
 
         /**
