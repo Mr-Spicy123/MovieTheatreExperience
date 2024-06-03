@@ -8,8 +8,9 @@ public class RegisteredMovies {
                 147,
                 Movie.Genres.Action,
                 "src\\Trailers\\MissionImpossible-Fallout.mp4",
-                "A group of terrorists plans to detonate three plutonium cores for a simultaneous nuclear attack on different cities." +
-                        "Ethan Hunt, along with his IMF team, sets out to stop the carnage."
+                "A group of terrorists plans to detonate three plutonium cores for<br/>" +
+                        "a simultaneous nuclear attack on different cities. Ethan Hunt, along<br/>" +
+                        "with his IMF team, sets out to stop the carnage."
         );
         public static final Movie STAR_WARS = new Movie(
                 "Star Wars: Revenge of The Sith ",
