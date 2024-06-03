@@ -126,13 +126,13 @@ public class MovieInfoGui extends JFrame {
         topLabel.setFocusable(false);
         topLabel.setBackground(Color.BLACK);
         topLabel.setForeground(Color.WHITE);
-        topLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        topLabel.setFont(new Font("Arial", Font.BOLD, (int)(screenSize.getHeight()/35)));
         topLabel.setBorder(null);
         topLabel.setHorizontalAlignment(JLabel.CENTER);
         topLabel.setOpaque(true);
 
         infoText.setName("TopLabel");
-        infoText.setText("<html>" +
+        infoText.setText("<html>" + // Set text using HTML formatting
                  "<b>" + movie.getName() + "</b> (" + movie.getReleaseYear() + ")<br/>" +
                 "<b>Genre: </b>" + movie.getGenre() + "<br/>" +
                 "<b>Duration: </b>" + movie.getMovieDurationMinutes() + " minutes<br/>" +
@@ -143,7 +143,7 @@ public class MovieInfoGui extends JFrame {
         infoText.setFocusable(false);
         infoText.setBackground(Color.BLACK);
         infoText.setForeground(Color.WHITE);
-        infoText.setFont(new Font("Arial", Font.PLAIN, 18));
+        infoText.setFont(new Font("Arial", Font.PLAIN, (int)(screenSize.getWidth()/85)));
         infoText.setBorder(null);
         infoText.setHorizontalAlignment(JLabel.CENTER);
         infoText.setOpaque(true);
@@ -158,7 +158,10 @@ public class MovieInfoGui extends JFrame {
         revalidate();
     }
 
+    /**
+     * Test the movies information gui
+     */
     public static void main(String[] args) {
-        MovieInfoGui test = new MovieInfoGui(RegisteredMovies.Animation.SUZUME);
+        MovieInfoGui test = new MovieInfoGui(RegisteredMovies.Action.MISSION_IMPOSSIBLE);
     }
 }
