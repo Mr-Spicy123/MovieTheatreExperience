@@ -80,8 +80,8 @@ public class arcadeWindow extends JFrame implements ActionListener {
         backButton.addActionListener(this) ;
         pacMan.addActionListener(this) ;
         snakeButton.addActionListener(this) ;
-
     }
+
     // Method to create buttons
     private JButton createButton(String text) {
         JButton button = new JButton(text);

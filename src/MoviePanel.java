@@ -25,7 +25,7 @@ public class MoviePanel implements MouseListener, ActionListener{
 
 
 
-        bGlabel = new JLabel(new ImageIcon("Res/brickwall.jpg"));
+        bGlabel = new JLabel(new HighQualityImageIcon("Res/brickwall.jpg"));
         bGlabel.setBounds(0, 0, 1280, 800);
         frame.add(bGlabel);
 
@@ -113,15 +113,15 @@ public class MoviePanel implements MouseListener, ActionListener{
                     bGlabel.revalidate();
                     bGlabel.repaint();
                     title.setText(genre2.getText());
-                    button1 = new JButton(new ImageIcon("./Res/It.jpg"));
+                    button1 = new JButton(new HighQualityImageIcon("./Res/It.jpg"));
                     button1.setBounds(69, 150, 335, 500);
                     button1.addActionListener(this);
                     bGlabel.add(button1);
-                    button2 = new JButton(new ImageIcon("./Res/AQuietPlace.jpg"));
+                    button2 = new JButton(new HighQualityImageIcon("./Res/AQuietPlace.jpg"));
                     button2.setBounds(473, 150, 335, 500);
                     button2.addActionListener(this);
                     bGlabel.add(button2);
-                    button3 = new JButton(new ImageIcon("./Res/Shining.jpg"));
+                    button3 = new JButton(new HighQualityImageIcon("./Res/Shining.jpg"));
                     button3.setBounds(877, 150, 335, 500);
                     button3.addActionListener(this);
                     bGlabel.add(button3);
@@ -135,15 +135,15 @@ public class MoviePanel implements MouseListener, ActionListener{
                     bGlabel.revalidate();
                     bGlabel.repaint();
                     title.setText(genre1.getText());
-                    button4 = new JButton(new ImageIcon("./Res/MissionImp.jpg"));
+                    button4 = new JButton(new HighQualityImageIcon("./Res/MissionImp.jpg"));
                     button4.setBounds(69, 150, 335, 500);
                     button4.addActionListener(this);
                     bGlabel.add(button4);
-                    button5 = new JButton(new ImageIcon("./Res/Starwars.jpg"));
+                    button5 = new JButton(new HighQualityImageIcon("./Res/Starwars.jpg"));
                     button5.setBounds(473, 150, 335, 500);
                     button5.addActionListener(this);
                     bGlabel.add(button5);
-                    button6 = new JButton(new ImageIcon("./Res/Avengers.jpg"));
+                    button6 = new JButton(new HighQualityImageIcon("./Res/Avengers.jpg"));
                     button6.setBounds(877, 150, 335, 500);
                     button6.addActionListener(this);
                     bGlabel.add(button6);
@@ -157,15 +157,15 @@ public class MoviePanel implements MouseListener, ActionListener{
                     bGlabel.revalidate();
                     bGlabel.repaint();
                     title.setText(genre3.getText());
-                    button7 = new JButton(new ImageIcon("./Res/YourName.jpg"));
+                    button7 = new JButton(new HighQualityImageIcon("./Res/YourName.jpg"));
                     button7.setBounds(69, 150, 335, 500);
                     button7.addActionListener(this);
                     bGlabel.add(button7);
-                    button8 = new JButton(new ImageIcon("./Res/FateNight.jpg"));
+                    button8 = new JButton(new HighQualityImageIcon("./Res/FateNight.jpg"));
                     button8.setBounds(473, 150, 335, 500);
                     button8.addActionListener(this);
                     bGlabel.add(button8);
-                    button9 = new JButton(new ImageIcon("./Res/Suzume.jpg"));
+                    button9 = new JButton(new HighQualityImageIcon("./Res/Suzume.jpg"));
                     button9.setBounds(877, 150, 335, 500);
                     button9.addActionListener(this);
                     bGlabel.add(button9);
