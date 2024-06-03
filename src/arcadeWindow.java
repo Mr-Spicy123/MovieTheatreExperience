@@ -14,13 +14,14 @@ public class arcadeWindow extends JFrame implements ActionListener {
 
     public arcadeWindow() {
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setSize(MainFrame.frameSize);
         setLocationRelativeTo(null);
         this.setVisible(true);
 
-        ImageIcon bg = new ImageIcon("Arcade.png");
-        JLabel background = new JLabel(bg);
+        JLabel bGlabel = new JLabel(new ImageIcon("Res/image_2024-6-2_220264876.png.jpg"));
+        bGlabel.setBounds(0, 0, 1280, 800);
+        this.add(bGlabel);
 
 
 
@@ -51,11 +52,11 @@ public class arcadeWindow extends JFrame implements ActionListener {
         centerPanel.add(backButton, gbc);
 
         // adding button to the background
-        background.setLayout(new BorderLayout());
-        background.add(centerPanel, BorderLayout.CENTER);
+        bGlabel.setLayout(new BorderLayout());
+        bGlabel.add(centerPanel, BorderLayout.CENTER);
 
 
-        setContentPane(background);
+        setContentPane(bGlabel);
         setVisible(true);
     }
     private void initButtons(){
