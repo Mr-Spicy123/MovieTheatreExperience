@@ -14,6 +14,6 @@ public class Sprite extends Drink {
   }
 
   public static double getCost() {
-    return price-coupon;
+    return price - coupon;
   }
 }
