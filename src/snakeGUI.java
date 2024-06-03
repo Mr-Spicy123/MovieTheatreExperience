@@ -8,7 +8,6 @@ public class snakeGUI extends JFrame {
 		frame.add(new GamePanel());
 		frame.setResizable(false);
 		frame.pack();
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 	}
