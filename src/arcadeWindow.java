@@ -19,9 +19,16 @@ public class arcadeWindow extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         this.setVisible(true);
 
-        JLabel bGlabel = new JLabel(new ImageIcon("Res/image_2024-6-2_220264876.png.jpg"));
-        bGlabel.setBounds(0, 0, 1280, 800);
-        this.add(bGlabel);
+        ImageIcon bgimageicon = new ImageIcon("Res/image_2024-06-02_220648276.png.jpg");
+        Image bgimage = bgimageicon.getImage();
+
+        int width = 1920; // New width for the scaled image
+        int height = 1080; // New height for the scaled image
+        Image scaledImage = bgimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel label = new JLabel(scaledIcon); // Create a JLabel to display the scaled image
+        this.add(label); // Add the JLabel to the component
+
 
 
 
@@ -40,50 +47,45 @@ public class arcadeWindow extends JFrame implements ActionListener {
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 10); // Adding insets for spacing
 
-        centerPanel.add(pacMan, gbc);
 
-        gbc.gridy = 1;
-        centerPanel.add(spaceInvader, gbc);
+        centerPanel.add(snakeButton, gbc);
 
         gbc.gridy = 2;
-        centerPanel.add(snakeButton, gbc);
+        centerPanel.add(pacMan, gbc);
 
         gbc.gridy = 3;
         centerPanel.add(backButton, gbc);
 
         // adding button to the background
-        bGlabel.setLayout(new BorderLayout());
-        bGlabel.add(centerPanel, BorderLayout.CENTER);
+        label.setLayout(new BorderLayout());
+        label.add(centerPanel, BorderLayout.CENTER);
 
 
-        setContentPane(bGlabel);
+        setContentPane(label);
         setVisible(true);
     }
     private void initButtons(){
         // Creating back button
         backButton = createButton("Back");
-        backButton.setBackground(new Color(0x131345));
+        backButton.setBackground(new Color(0xE75252));
 
         // Creating game buttons
         pacMan = createButton("Pacman");
         pacMan.setBackground(new Color(0xFFCE5D));
 
-        spaceInvader = createButton("Space Invaders");
-        spaceInvader.setBackground(new Color(0x9A35FF));
 
         snakeButton = createButton("Snake Game");
         snakeButton.setBackground(new Color(0x59D93A));
 
         backButton.addActionListener(this) ;
         pacMan.addActionListener(this) ;
-        spaceInvader.addActionListener(this) ;
         snakeButton.addActionListener(this) ;
 
     }
     // Method to create buttons
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(150, 40)); // Set bigger preferred size
+        button.setPreferredSize(new Dimension(230, 70)); // Set bigger preferred size
         return button;
     }
 
@@ -99,9 +101,6 @@ public class arcadeWindow extends JFrame implements ActionListener {
                     break;
                 case "Space Invader":
 
-                    break;
-                case "Snake Game":
-                    new snakeGUI();
                     break;
                 case "Back":
                     System.out.println("yes");
