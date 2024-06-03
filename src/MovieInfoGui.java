@@ -136,9 +136,9 @@ public class MovieInfoGui extends JFrame {
                  "<b>" + movie.getName() + "</b> (" + movie.getReleaseYear() + ")<br/>" +
                 "<b>Genre: </b>" + movie.getGenre() + "<br/>" +
                 "<b>Duration: </b>" + movie.getMovieDurationMinutes() + " minutes<br/>" +
-                "<b>Cost: </b>$" + movie.getCost() + "<br/><br/>" +
+                "<b>Cost: </b>$" + movie.getCost() + "<br/><br/><br/>" +
 
-                "<b>Description: </b><br/>" + movie.getDescription() +
+                "\"" + movie.getDescription() + "\"" +
         "</html>");
         infoText.setFocusable(false);
         infoText.setBackground(Color.BLACK);
@@ -159,6 +159,6 @@ public class MovieInfoGui extends JFrame {
     }
 
     public static void main(String[] args) {
-        MovieInfoGui test = new MovieInfoGui(RegisteredMovies.Action.STAR_WARS);
+        MovieInfoGui test = new MovieInfoGui(RegisteredMovies.Animation.SUZUME);
     }
 }
