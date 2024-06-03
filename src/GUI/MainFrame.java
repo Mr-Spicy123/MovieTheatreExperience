@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.Arcade.GUI;
+import GUI.Arcade.arcadeWindow;
 import GUI.FoodDrink.FoodCourtGUI;
 
 import javax.swing.*;
@@ -82,7 +83,7 @@ public class MainFrame implements ActionListener, MouseListener {
                     new FoodCourtGUI();
                     break;
                 case "Arcade":
-                    new GUI();
+                    new arcadeWindow();
                     break;
                 case "Exit":
                     System.exit(0);

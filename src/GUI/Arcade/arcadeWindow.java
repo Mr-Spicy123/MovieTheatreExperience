@@ -61,6 +61,7 @@ public class arcadeWindow extends JFrame {
         pacman.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close the current window
+                new pacmanStartingWindow();
                 // open pacman game
             }
         });
@@ -75,6 +76,7 @@ public class arcadeWindow extends JFrame {
         snakeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close the current window
+                new GUI();
                 // open snake game
             }
         });
