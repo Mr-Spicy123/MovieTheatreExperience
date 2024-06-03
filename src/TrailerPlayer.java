@@ -16,14 +16,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/*public class TrailerPlayerFrame extends JFrame {
+    public TrailerPlayerFrame (JPanel trailerPlayer){
+        JFrame frame = new JFrame();
+        frame.setSize(MainFrame.frameSize);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add(trailerPlayer);
+        frame.setVisible(true);
 
-    class TrailerPlayer extends JPanel implements ActionListener {
+    }
+}*/
+    class TrailerPlayer extends JFrame implements ActionListener {
         public static final String PAUSE_TEXT = "||";
         public static final String PLAY_TEXT =  ">";
 
         private final Movie movie;
-        private final JPanel view, bottomBar;
-        private final JButton pauseButton;
+        private final JPanel view, bottomBar, tPanel;
+        private final JButton pauseButton, backButton;
         private final JSlider slideBar;
         private final JLabel timeLabel, statusLabel;
 
@@ -43,9 +54,11 @@ import java.io.File;
             ready = false;
 
             // Creating components
+            tPanel = new JPanel();
             view = new JPanel();
             bottomBar = new JPanel();
             pauseButton = new JButton();
+            backButton = new JButton();
             slideBar = new JSlider();
             timeLabel = new JLabel();
             statusLabel = new JLabel();
@@ -54,17 +67,28 @@ import java.io.File;
             init();
         }
 
+
         /**
          * Build the UI
          */
         public void init() {
+            // Configure JFrame
+            this.setSize(MainFrame.frameSize);
+            this.setLocationRelativeTo(null);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setLayout(new BorderLayout());
+            this.setVisible(true);
+            this.add(tPanel);
+            this.add(view);
+            this.add(bottomBar);
+
             // Configure JPanel
-            setBackground(Color.BLACK);
-            setName("TrailerPlayer (" + movie.getName() + ")");
-            setLayout(new BorderLayout());
-            setBackground(new Color(0, 0, 0));
-            setBorder(BorderFactory.createLineBorder(Color.WHITE));
-            setFocusable(false);
+            tPanel.setBackground(Color.BLACK);
+            tPanel.setName("TrailerPlayer (" + movie.getName() + ")");
+            tPanel.setLayout(new BorderLayout());
+            tPanel.setBackground(new Color(0, 0, 0));
+            tPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            tPanel.setFocusable(false);
 
             // Configure view
             view.setName("View");
@@ -81,6 +105,8 @@ import java.io.File;
             bottomBar.setFocusable(false);
             bottomBar.setPreferredSize(new Dimension(0, 50));
             bottomBar.setVisible(false);
+
+            // Configure Screen Gui
 
             GridBagConstraints bottomConstraints = new GridBagConstraints();
             bottomConstraints.fill = GridBagConstraints.BOTH;
@@ -159,6 +185,19 @@ import java.io.File;
             pauseButton.setFont(new Font("Arial", Font.BOLD, 25));
             pauseButton.setPreferredSize(new Dimension(100, 0));
 
+            // Configure back button
+
+            backButton.setText("back");
+            backButton.setFocusable(false);
+            backButton.addActionListener(this);
+            backButton.setBorder(null);
+            backButton.setBackground(Color.BLACK);
+            backButton.setForeground(Color.WHITE);
+            backButton.setFont(new Font("Arial", Font.BOLD, 20));
+            backButton.setPreferredSize(new Dimension(100, 0));
+            backButton.setVisible(true);
+
+
             // Configure slider bar
             slideBar.setName("Slider");
             slideBar.setFocusable(false);
@@ -206,10 +245,19 @@ import java.io.File;
             bottomConstraints.weightx = 0.1;
             bottomBar.add(timeLabel, bottomConstraints);
 
+            bottomConstraints.gridx = 2;
+            bottomConstraints.gridy = 0;
+            bottomConstraints.gridwidth = 1;
+            bottomConstraints.gridheight = 1;
+            bottomConstraints.weightx = 0.005;
+            bottomBar.add(backButton, bottomConstraints);
+
+
             view.add(vidPanel);
             add(view, BorderLayout.CENTER);
             add(bottomBar, BorderLayout.SOUTH);
             add(statusLabel, BorderLayout.NORTH);
+
         }
 
         /**
@@ -247,6 +295,7 @@ import java.io.File;
             pauseButton.setText(PLAY_TEXT);
             slideBar.setEnabled(true);
             player.pause();
+            backButton.setVisible(true);
         }
 
         /**
@@ -257,6 +306,7 @@ import java.io.File;
             pauseButton.setText(PAUSE_TEXT);
             slideBar.setEnabled(false);
             player.play();
+            backButton.setVisible(false);
         }
 
         /**
@@ -274,6 +324,7 @@ import java.io.File;
         public void close() {
             setVisible(false);
             player.dispose();
+            this.dispose();
         }
 
         /**
@@ -338,6 +389,11 @@ import java.io.File;
                     }
                 }
                 repaint(); // Repaint to fix any rendering issues
+            }
+            if(e.getSource().equals(backButton)){
+                if(paused){
+                    close();
+                }
             }
         }
 }
