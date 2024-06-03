@@ -18,9 +18,14 @@ public class RegisteredMovies {
                 140,
                 Movie.Genres.Action,
                 "src\\Trailers\\StarWars-RevengeOfTheSith.mp4",
-                "Three years into the Clone Wars, Obi-Wan Kenobi pursues a new threat, while Anakin Skywalker is lured by Chancellor Palpatine into a sinister plot to rule the galaxy." +
-                        "Nearly three years have passed since the beginning of the Clone Wars." +
-                        "The Republic, with the help of the Jedi, takes on Count Dooku and the Separatists."
+                "<html>" +
+                        "Three years into the Clone Wars, Obi-Wan Kenobi pursues<br/>" +
+                        "a new threat, while Anakin Skywalker is lured by Chancellor<br/>" +
+                        "Palpatine into a sinister plot to rule the galaxy. Nearly<br/>" +
+                        "three years have passed since the beginning of the Clone Wars.<br/>" +
+                        "The Republic, with the help of the Jedi, takes on Count Dooku<br/>" +
+                        "and the Separatists." +
+                    "</html>"
         );
         public static final Movie AVENGERS_END_GAME = new Movie(
                 "Avengers: End Game",

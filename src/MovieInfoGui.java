@@ -1,17 +1,15 @@
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 
 public class MovieInfoGui extends JFrame {
     private final Movie movie;
     private final JPanel contentPanel, topPanel, centerPanel, infoPanel;
-    private final JLabel topLabel, genreLabel, costLabel;
+    private final JLabel topLabel, infoText;
+    private final JScrollPane infoScrollPane;
     private final TrailerPlayer trailerPlayer;
 
     private final BorderLayout frameLayout, contentLayout;
-    private final GridBagLayout infoLayout;
-    private final GridLayout topLayout, centerLayout;
+    private final GridLayout topLayout, centerLayout, infoLayout;
 
     public MovieInfoGui(Movie m) {
         movie = m;
@@ -19,7 +17,7 @@ public class MovieInfoGui extends JFrame {
         frameLayout = new BorderLayout();
         contentLayout = new BorderLayout();
         topLayout = new GridLayout(1,1);
-        infoLayout = new GridBagLayout();
+        infoLayout = new GridLayout(1, 1);
         centerLayout = new GridLayout(1, 2);
 
         // Create components with different opacities
@@ -52,26 +50,19 @@ public class MovieInfoGui extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setComposite(AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER,
-                        0f // No opacity (invisible)
+                        1f // No opacity (invisible)
                 ));
                 super.paint(g);
             }
         };
         topLabel = new JLabel();
-        genreLabel = new JLabel();
-        costLabel = new JLabel();
+        infoText = new JLabel();
+        infoScrollPane = new JScrollPane();
 
         refresh();
 
-        GridBagConstraints infoConstraints = new GridBagConstraints();
-        infoConstraints.gridwidth = 1;
-        infoConstraints.gridheight = 1;
-        infoConstraints.gridx = 0;
-        infoConstraints.gridy = 0;
-        infoConstraints.weighty = 0.2;
-        infoConstraints.weightx = 1;
-        infoConstraints.fill = GridBagConstraints.VERTICAL;
-
+//        infoScrollPane.add(infoText);
+        infoPanel.add(infoScrollPane);
         topPanel.add(topLabel);
         contentPanel.add(centerPanel, BorderLayout.CENTER);
         contentPanel.add(topPanel, BorderLayout.NORTH);
@@ -126,8 +117,9 @@ public class MovieInfoGui extends JFrame {
         ));
 
         infoPanel.setName("InfoPanel");
-        infoPanel.setLayout(null);
         infoPanel.setFocusable(false);
+        infoPanel.setLayout(infoLayout);
+        infoPanel.setBackground(Color.WHITE);
 
         topLabel.setName("TopLabel");
         topLabel.setText(movie.getName() + " (" + movie.getReleaseYear() + ")");
@@ -139,15 +131,34 @@ public class MovieInfoGui extends JFrame {
         topLabel.setHorizontalAlignment(JLabel.CENTER);
         topLabel.setOpaque(true);
 
+        infoText.setName("TopLabel");
+        infoText.setText("<html>" +
+                 "<b>" + movie.getName() + "</b> (" + movie.getReleaseYear() + ")<br/>" +
+                "<b>Genre: </b>" + movie.getGenre() + "<br/>" +
+                "<b>Duration: </b>" + movie.getMovieDurationMinutes() + " minutes<br/>" +
+                "<b>Cost: </b>$" + movie.getCost() + "<br/><br/>" +
+
+                "<b>Description: </b><br/>" + movie.getDescription() +
+        "</html>");
+        infoText.setFocusable(false);
+        infoText.setBackground(Color.BLACK);
+        infoText.setForeground(Color.WHITE);
+        infoText.setFont(new Font("Arial", Font.PLAIN, 18));
+        infoText.setBorder(null);
+        infoText.setHorizontalAlignment(JLabel.CENTER);
+        infoText.setOpaque(true);
+
+        infoScrollPane.setName("InfoScrollPane");
+        infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setBackground(new Color(0, 0, 0, 0));
+        infoScrollPane.getViewport().setBackground(new Color(0, 0,0 ,0));
+        infoScrollPane.setViewportView(infoText);
+
         revalidate();
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-    }
-
     public static void main(String[] args) {
-        new MovieInfoGui(RegisteredMovies.Horror.A_QUIET_PLACE);
+        MovieInfoGui test = new MovieInfoGui(RegisteredMovies.Action.STAR_WARS);
     }
 }
