@@ -8,7 +8,6 @@ public class pacmanStartingWindow extends JFrame {
 
         // Set up the window
         super("Pacman Window"); // Set the window title
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set close operation
         setSize(800, 600); // Set window size
 
         // Create the background image
