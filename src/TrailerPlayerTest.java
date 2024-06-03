@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.io.File;
 
 public class TrailerPlayerTest {
-    public static void main(String[] args) {
+    public TrailerPlayerTest() {
         new JFXPanel();
 
         // Creating JFrame
