@@ -154,7 +154,7 @@ public class MovieInfoGui extends JFrame implements WindowListener, ActionListen
 
         infoText.setName("TopLabel");
         infoText.setText("<html>" + // Set text using HTML formatting
-                "<b>" + movie.getName() + "</b> (" + movie.getReleaseYear() + ")<br/>" +
+                "<b>" + movie.getName() + "</b> (" + movie.getReleaseYear() + ")<br/><br/>" +
                 "<b>Genre: </b>" + movie.getGenre() + "<br/>" +
                 "<b>Duration: </b>" + movie.getMovieDurationMinutes() + " minutes<br/>" +
                 "<b>Cost: </b>$" + movie.getCost() + "<br/><br/><br/>" +
