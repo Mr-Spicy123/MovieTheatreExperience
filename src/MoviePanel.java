@@ -279,4 +279,5 @@ public class MoviePanel implements MouseListener, ActionListener{
             button9.setVisible(false);
         }
     }
+
 }
