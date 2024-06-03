@@ -266,6 +266,16 @@ public class FoodCourtGUI extends JFrame {
       foodFrame.setVisible(false);
     });
 
+    //the meal back button
+    JButton optionBackButton = new JButton();
+    optionBackButton.setBounds(12, 17, 150, 50);
+    optionBackButton.setText("Back");
+    optionBackButton.setOpaque(false);
+    optionFrame.add(optionBackButton);
+    optionBackButton.addActionListener(e -> {
+      optionFrame.setVisible(false);
+    });
+
     //Option checkout button
     JButton optionsCheckoutButton = new JButton();
     optionsCheckoutButton.setBounds(798, 55, 200, 75);
