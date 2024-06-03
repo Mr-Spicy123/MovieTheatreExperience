@@ -47,7 +47,6 @@ public class Movie {
                 release,
                 duration,
                 g,
-                "",
                 ""
         );
     }
@@ -70,6 +69,7 @@ public class Movie {
                 duration,
                 g,
                 path,
+                "",
                 ""
         );
     }
@@ -84,7 +84,7 @@ public class Movie {
      * @param path The path of the trailer video file
      * @param desc The description
      */
-    public Movie(String n, float c, int release, float duration, Genres g, String path, String desc) {
+    public Movie(String n, float c, int release, float duration, Genres g, String path, String desc, String cover) {
         // Initiating/Instantiating instance variables to their corresponding parameter
         name = n;
         cost = c;
@@ -93,6 +93,7 @@ public class Movie {
         genre = g;
         trailerFilePath = path;
         description = desc;
+        coverFilePath = cover;
     }
 
     /**

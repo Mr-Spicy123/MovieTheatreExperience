@@ -13,7 +13,8 @@ public class RegisteredMovies {
                 "Res\\Trailers\\MissionImpossible-Fallout.mp4",
                 "A group of terrorists plans to detonate three plutonium cores for<br/>" +
                         "a simultaneous nuclear attack on different cities. Ethan Hunt, along<br/>" +
-                        "with his IMF team, sets out to stop the carnage."
+                        "with his IMF team, sets out to stop the carnage.",
+                "Res\\MissionImp.jpg"
         );
         public static final Movie STAR_WARS = new Movie(
                 "Star Wars: Revenge of The Sith ",
@@ -27,7 +28,8 @@ public class RegisteredMovies {
                         "Palpatine into a sinister plot to rule the galaxy. Nearly<br/>" +
                         "three years have passed since the beginning of the Clone Wars.<br/>" +
                         "The Republic, with the help of the Jedi, takes on Count Dooku<br/>" +
-                        "and the Separatists."
+                        "and the Separatists.",
+                "Res\\Starwars.jpg"
         );
         public static final Movie AVENGERS_END_GAME = new Movie(
                 "Avengers: End Game",
@@ -39,7 +41,8 @@ public class RegisteredMovies {
                 "The grave course of events set in motion by Thanos, that wiped<br/>" +
                         "out half the universe and fractured the Avengers ranks, compels<br/>" +
                         "the remaining Avengers to take one final stand in Marvel Studios'<br/>" +
-                        "grand conclusion to twenty-two films"
+                        "grand conclusion to twenty-two films",
+                "Res\\Avengers.jpg"
         );
     }
 
@@ -57,7 +60,8 @@ public class RegisteredMovies {
                         "prey on the town's children. Banding together over<br/>" +
                         "the course of one horrifying summer, the friends must<br/>" +
                         "overcome their own personal fears to battle the murderous,<br/>" +
-                        "bloodthirsty clown known as Pennywise."
+                        "bloodthirsty clown known as Pennywise.",
+                "Res\\It.jpg"
         );
         public static final Movie A_QUIET_PLACE = new Movie(
                 "A Quiet Place",
@@ -71,7 +75,8 @@ public class RegisteredMovies {
                         "Knowing that even the slightest whisper or footstep can<br/>" +
                         "bring death, Evelyn and Lee are determined to find a way<br/>" +
                         "to protect their children while desperately searching for<br/>" +
-                        "a way to fight back."
+                        "a way to fight back.",
+                "Res\\AQuietPlace.jpg"
         );
         public static final Movie SHINING = new Movie(
                 "The Shining",
@@ -88,7 +93,8 @@ public class RegisteredMovies {
                         "goes nowhere and Danny's visions become more disturbing,<br/>" +
                         "Jack discovers the hotel's dark secrets and begins to<br/>" +
                         "unravel into a homicidal maniac hell-bent on terrorizing<br/>" +
-                        "his family."
+                        "his family.",
+                "Res\\Shining.jpg"
         );
     }
 
@@ -105,7 +111,8 @@ public class RegisteredMovies {
                         "the Holy Grail War to protect his city. However, this<br/>" +
                         "time Shirou encounters not only other mages and Servant<br/>" +
                         "warriors, but also a mysterious shadow killing most of<br/>" +
-                        "the participants."
+                        "the participants.",
+                "Res\\FateNight.jpg"
         );
         public static final Movie SUZUME = new Movie(
                 "Suzume",
@@ -120,7 +127,8 @@ public class RegisteredMovies {
                         "Able to see supernatural forces that others cannot, it's<br/>" +
                         "up to her to close the mysterious doors that are spreading<br/>" +
                         "chaos across the land. A perilous journey awaits as the<br/>" +
-                        "fate of Japan rests on her shoulders."
+                        "fate of Japan rests on her shoulders.",
+                "Res\\Suzume.jpg"
         );
         public static final Movie YOUR_NAME = new Movie(
                 "Your Name",
@@ -132,7 +140,8 @@ public class RegisteredMovies {
                 "Two teenagers share a profound, magical connection upon<br/>" +
                         "discovering they are swapping bodies. Things manage to<br/>" +
                         "become even more complicated when the boy and girl<br/>" +
-                        "decide to meet in person."
+                        "decide to meet in person.",
+                "Res\\YourName.jpg"
         );
     }
 }

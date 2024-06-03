@@ -59,7 +59,17 @@ public class MovieInfoGui extends JFrame implements WindowListener, ActionListen
                         AlphaComposite.SRC_OVER,
                         1f // No opacity (invisible)
                 ));
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 super.paint(g);
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                HighQualityImageIcon cover = new HighQualityImageIcon(m.getCoverFilePath());
+                g2d.drawImage(cover.getImage(), -200, -100, 1000, 1400, null);
             }
         };
         infoText = new JLabel();
@@ -130,7 +140,7 @@ public class MovieInfoGui extends JFrame implements WindowListener, ActionListen
         infoPanel.setName("InfoPanel");
         infoPanel.setFocusable(false);
         infoPanel.setLayout(infoLayout);
-        infoPanel.setBackground(Color.WHITE);
+        infoPanel.setBackground(Color.BLACK);
 
 //        topLabel.setName("TopLabel");
 //        topLabel.setText(movie.getName() + " (" + movie.getReleaseYear() + ")");
@@ -152,19 +162,19 @@ public class MovieInfoGui extends JFrame implements WindowListener, ActionListen
                 "\"" + movie.getDescription() + "\"" +
                 "</html>");
         infoText.setFocusable(false);
-        infoText.setBackground(Color.BLACK);
+        infoText.setBackground(new Color(0, 0, 0, 150));
         infoText.setForeground(Color.WHITE);
         infoText.setFont(new Font("Arial", Font.PLAIN, (int)(screenSize.getWidth()/85)));
         infoText.setBorder(null);
         infoText.setHorizontalAlignment(JLabel.CENTER);
-        infoText.setOpaque(true);
 
         infoScrollPane.setName("InfoScrollPane");
         infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setBackground(new Color(0, 0, 0, 0));
-        infoScrollPane.getViewport().setBackground(new Color(0, 0,0 ,0));
+        infoScrollPane.getViewport().setBackground(new Color(0, 0,0 ,200));
         infoScrollPane.setViewportView(infoText);
+        infoScrollPane.setOpaque(false);
 
         backButton.setName("BackButton");
         backButton.setText("Back To Movies");

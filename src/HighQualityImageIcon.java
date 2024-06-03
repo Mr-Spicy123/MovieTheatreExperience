@@ -18,6 +18,6 @@ public class HighQualityImageIcon extends ImageIcon {
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        super.paintIcon(c, g, x, y);
+        super.paintIcon(c, g2d, x, y);
     }
 }
