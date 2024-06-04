@@ -73,51 +73,69 @@ public class FoodCourtGUI extends JFrame {
         Object source = e.getSource();
         if (source instanceof JButton) {
           JButton button = (JButton) source;
-
+          String currentItem = "";
           switch (button.getText()) {
             //whatever the text of the button is set to is how it determines the button
             case "popcorn":
               TotalCost.addCost(Popcorn.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added popcorn to cart");
+              JOptionPane.showMessageDialog(null, "Added popcorn to cart\nRunning total: $" + TotalCost.getTotalCost());
+              currentItem = "popcorn";
               break;
             case "nachos":
               TotalCost.addCost(Nachos.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added nachos to cart");
+              JOptionPane.showMessageDialog(null, "Added nachos to cart\nRunning total: $" + TotalCost.getTotalCost());
+              currentItem = "nachos";
               break;
             case "hotdog":
               TotalCost.addCost(Hotdog.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added hotdog to cart");
+              JOptionPane.showMessageDialog(null, "Added hotdog to cart\nRunning total: $" + TotalCost.getTotalCost());
+              currentItem = "hotdog";
               break;
             case "Coke":
               TotalCost.addCost(CocaCola.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added CocaCola to cart");
+              JOptionPane.showMessageDialog(null, "Added CocaCola to cart\nRunning total: $" + TotalCost.getTotalCost());
+              currentItem = "CocaCola";
               break;
             case "Sprite":
               TotalCost.addCost(Sprite.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added Sprite to cart");
+              JOptionPane.showMessageDialog(null, "Added Sprite to cart\nRunning total: $" + TotalCost.getTotalCost());
+              currentItem = "Sprite";
               break;
             case "Fanta":
               TotalCost.addCost(Fanta.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added Fanta to cart");
+              JOptionPane.showMessageDialog(null, "Added Fanta to cart\nRunning total: $" + TotalCost.getTotalCost());
+              currentItem = "Fanta";
               break;
             case "Checkout":
               if (User.getBalance() >= TotalCost.getTotalCost()) {
                 User.changeBalance(TotalCost.getTotalCost());
-                Arrays.fill(TotalCost.costs, 0);
-                TotalCost.totalCostInd = 0;
-                JOptionPane.showMessageDialog(null, "purchase successful!\nBalance remaining: $" + User.getBalance());
+                TotalCost.removeAllItems();
+                JOptionPane.showMessageDialog(null, "Purchase successful!\nBalance remaining: $" + User.getBalance());
               }
               else {
-                JOptionPane.showMessageDialog(null, "not enough money. You only have $" + User.getBalance());
-                Arrays.fill(TotalCost.costs, 0);
+                JOptionPane.showMessageDialog(null, "Not enough money. You need $" + TotalCost.getTotalCost() + " and you have $" + User.getBalance());
+                TotalCost.removeAllItems();
+              }
+              break;
+            case "Remove all":
+              TotalCost.removeAllItems();
+              JOptionPane.showMessageDialog(null, "All items in cart have been removed!");
+              break;
+            case "Remove recent":
+              try {
+                TotalCost.removeLastItem();
+                JOptionPane.showMessageDialog(null, "Removed previous item!\nRunning total: $" + TotalCost.getTotalCost());
+              } catch (ArrayIndexOutOfBoundsException f) {
+                JOptionPane.showMessageDialog(null, "Cart is already empty");
                 TotalCost.totalCostInd = 0;
               }
+
           }
         }
       }
@@ -208,10 +226,34 @@ public class FoodCourtGUI extends JFrame {
       JButton foodCheckoutButton = new JButton();
       commonButtonProperties(foodFrame,foodCheckoutButton, "Checkout", 1000, 100, 200, 75, false, false);
 
-      //Dink checkout button
+      //Drink checkout button
       JButton drinksCheckoutButton = new JButton();
       commonButtonProperties(drinkFrame,drinksCheckoutButton, "Checkout", 1000, 100, 200, 75, false, false);
 
+      //Option remove-all button
+    JButton optionsRemoveAllButton = new JButton();
+    commonButtonProperties(optionFrame, optionsRemoveAllButton, "Remove all", 440, 150, 200, 75, false, false);
+
+    //Food remove-all button
+    JButton foodRemoveAllButton = new JButton();
+    commonButtonProperties(foodFrame, foodRemoveAllButton, "Remove all", 440, 150, 200, 75, false, false);
+
+    //drink remove-all button
+    JButton drinkRemoveAllButton = new JButton();
+    commonButtonProperties(drinkFrame, drinkRemoveAllButton, "Remove all", 440, 150, 200, 75, false, false);
+
+    //option remove-recent button
+    JButton optionRemoveRecentButton = new JButton();
+    commonButtonProperties(optionFrame, optionRemoveRecentButton, "Remove recent", 660, 150, 200, 75, false, false);
+
+    //food remove-recent button
+    JButton foodRemoveRecentButton = new JButton();
+    commonButtonProperties(foodFrame, foodRemoveRecentButton, "Remove recent", 660, 150, 200, 75, false, false);
+
+    //drink remove-recent button
+    JButton drinkRemoveRecentButton = new JButton();
+    commonButtonProperties(drinkFrame, drinkRemoveRecentButton, "Remove recent", 660, 150, 200, 75, false, false);
+    
   }
   public void commonPanelProperties(JPanel panel, JLabel label, int x,int y, int width, int height){
     panel.setBounds(x, y, width, height);

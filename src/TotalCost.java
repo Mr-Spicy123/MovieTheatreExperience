@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class TotalCost {
   static int totalCostInd = 0;
   static double[] costs = new double[100];
@@ -26,6 +28,18 @@ public class TotalCost {
     }
     //space between prints
     System.out.println("");
+  }
+
+  public static void removeLastItem() {
+      totalCostInd -= 1;
+      costs[totalCostInd] = 0;
+  }
+
+  public static void removeAllItems() {
+    for (int i = totalCostInd; i >= 0; i--) {
+      costs[i] = 0;
+    }
+    totalCostInd = 0;
   }
 
 }
