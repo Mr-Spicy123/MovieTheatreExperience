@@ -202,8 +202,8 @@ public class GamePanel extends JPanel implements ActionListener{
 			
 		}else if(isRunning ==false) {
 			
-			System.out.println("Game Over!");
-			
+			//System.out.println("Game Over!");
+
 			
 			
 		}
