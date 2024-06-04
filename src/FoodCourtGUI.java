@@ -17,6 +17,7 @@ public class FoodCourtGUI extends JFrame {
   Image optionsimage = options.getImage();
   Image drinkCounterimage = drinkCounter.getImage();
   Image foodCounterimage = foodCounter.getImage();
+  ActionListener listener;
 
   public FoodCourtGUI() {
     GridLayout Grid = new GridLayout(0, 3);
@@ -41,51 +42,32 @@ public class FoodCourtGUI extends JFrame {
 
     // The Food Back panel
     JPanel foodBackPanel = new JPanel();
-    foodBackPanel.add(foodBackLabel);
-    foodBackPanel.setBounds(0, 0, 1280, 800);
+    commonPanelProperties(foodBackPanel, foodBackLabel, 0, 0, 1280, 800);
 
     JPanel drinkBackPanel = new JPanel();
-    drinkBackPanel.add(drinkBackLabel);
-    drinkBackPanel.setBounds(0, 0, 1280, 800);
+    commonPanelProperties(drinkBackPanel, drinkBackLabel, 0, 0, 1280, 800);
 
     JPanel optionsBackPanel = new JPanel();
-    optionsBackPanel.add(optionsBackLabel);
-    optionsBackPanel.setBounds(0, 0, 1280, 800);
+    commonPanelProperties(optionsBackPanel, optionsBackLabel, 0, 0, 1280, 800);
 
     //Order Panel
     JPanel optionPanel = new JPanel();
-    optionPanel.setBounds(0, 200, 1280, 800);
-    optionPanel.setOpaque(false);
-    optionPanel.setLayout(optionGrid);
+    commonPanelProperties(optionPanel,0, 200, 1280, 800, false, optionGrid);
 
     //Drinks option Panel
     JPanel drinkPanel = new JPanel();
-    drinkPanel.setBounds(0, 200, 1280, 800);
-    drinkPanel.setOpaque(false);
-    drinkPanel.setLayout(Grid);
+    commonPanelProperties(drinkPanel,0, 200, 1280, 800, false, Grid);
 
     //Meal option Panel
     JPanel mealPanel = new JPanel();
-    mealPanel.setBounds(0, 200, 1280, 800);
-    mealPanel.setOpaque(false);
-    mealPanel.setLayout(Grid);
+    commonPanelProperties(mealPanel,0, 200, 1280, 800, false, Grid);
 
     //Food Panel
     JPanel foodPanel = new JPanel();
     foodPanel.setBounds(0, 0, 1280, 800);
     foodPanel.setBackground(Color.gray);
 
-    // The Order List Panel
-        /*
-
-        // this will be continued if we have enough time.
-        JPanel orderListPanel = new JPanel();
-        orderListPanel.add(orderLabel);
-        orderListPanel.setBackground(Color.gray);
-        orderListPanel.setBounds(10, 300, 200, 100);
-         */
-
-    ActionListener listener = new ActionListener() {
+    listener = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -144,176 +126,125 @@ public class FoodCourtGUI extends JFrame {
     //popcorn button
     //Order panel food button
     JButton popcorn = new JButton();
-    popcorn.setText("popcorn");
-    popcorn.setFocusable(false);
-    mealPanel.add(popcorn);
-    popcorn.addActionListener(listener);
+    commonButtonProperties(mealPanel,popcorn, "popcorn", 0, 0, 0, 0, false, false);
 
     //nachos button
     JButton nachos = new JButton();
-    nachos.setText("nachos");
-    nachos.setFocusable(false);
-    mealPanel.add(nachos);
-    nachos.addActionListener(listener);
+    commonButtonProperties(mealPanel,nachos, "nachos", 0, 0, 0, 0, false, false);
 
     //Popcorn button
     JButton hotdog = new JButton();
-    hotdog.setText("hotdog");
-    hotdog.setFocusable(false);
-    mealPanel.add(hotdog);
-    hotdog.addActionListener(listener);
+    commonButtonProperties(mealPanel,hotdog, "hotdog", 0, 0, 0, 0, false, false);
 
     //Coke button
     JButton Coke = new JButton();
-    Coke.setText("Coke");
-    Coke.setOpaque(false);
-    Coke.setFocusable(false);
-    drinkPanel.add(Coke);
-    Coke.addActionListener(listener);
-
+    commonButtonProperties(drinkPanel,Coke, "Coke", 0, 0, 0, 0, false, false);
     //Sprite button
     JButton Sprite = new JButton();
-    Sprite.setText("Sprite");
-    Sprite.setOpaque(false);
-    Sprite.setFocusable(false);
-    drinkPanel.add(Sprite);
-    Sprite.addActionListener(listener);
+    commonButtonProperties(drinkPanel,Sprite, "Sprite", 0, 0, 0, 0, false, false);
 
     //Fanta button
     JButton Fanta = new JButton();
-    Fanta.setText("Fanta");
-    Fanta.setOpaque(false);
-    Fanta.setFocusable(false);
-    drinkPanel.add(Fanta);
-    Fanta.addActionListener(listener);
+    commonButtonProperties(drinkPanel,Fanta, "Fanta", 0, 0, 0, 0, false, false);
 
 
-    //Frame
+      //Frame
+      //The option frame
+      JFrame optionFrame = new JFrame();
+      commonFrameProperties(optionFrame, optionsBackPanel, optionPanel, true, false);
 
-    //The option frame
+      //The drinks frame
+      JFrame drinkFrame = new JFrame();
+      commonFrameProperties(drinkFrame, drinkBackPanel, drinkPanel, false, false);
 
-    JFrame optionFrame = new JFrame();
-    optionFrame.setSize(MainFrame.frameSize);
-    optionFrame.setLocationRelativeTo(null);
-    optionFrame.setLayout(null);
-    optionFrame.add(optionsBackPanel);
-    optionFrame.add(optionPanel);
-    optionFrame.setVisible(true);
-    optionFrame.setResizable(false); // Disables the feature to resize the frame
+      //The food frame
+      JFrame foodFrame = new JFrame();
+      commonFrameProperties(foodFrame, foodBackPanel, mealPanel, false, false);
 
+      //Food button
+      JButton foodButton = new JButton();
+      commonButtonProperties(optionPanel,foodButton, "Food", 200, 0, 200, 100, false, false);
+      foodButton.addActionListener(e -> {
+        optionFrame.setVisible(false);
+        foodFrame.setVisible(true);
+        drinkFrame.setVisible(false);
+      });
 
-    //The drinks frame
+      //Drink button
+      JButton drinkButton = new JButton();
+      commonButtonProperties(optionPanel,drinkButton, "Drink", 200, 0, 200, 100, false, false);
+      drinkButton.addActionListener(e -> {
+        optionFrame.setVisible(false);
+        foodFrame.setVisible(false);
+        drinkFrame.setVisible(true);
+      });
 
-    JFrame drinkFrame = new JFrame();
-    drinkFrame.setSize(MainFrame.frameSize);
-    drinkFrame.setLocationRelativeTo(null);
-    drinkFrame.setLayout(null);
-    drinkFrame.add(drinkBackPanel);
-    drinkFrame.add(drinkPanel);
-    popcorn.setOpaque(false);
-    nachos.setOpaque(false);
-    hotdog.setOpaque(false);
-    drinkFrame.setVisible(false);
-    drinkFrame.setResizable(false); // Disables the feature to resize the frame
+      //the Drinks back button
+      JButton drinksBackButton = new JButton();
+      commonButtonProperties(drinkFrame,drinksBackButton, "Back", 12, 17, 150, 50, false, false);
+      drinksBackButton.addActionListener(e -> {
+        optionFrame.setVisible(true);
+        drinkFrame.setVisible(false);
+      });
 
+      JButton counterbackbutton = new JButton();
+      commonButtonProperties(optionFrame,counterbackbutton, "Back", 12, 17, 150, 50, false, false);
+      counterbackbutton.addActionListener(e -> {
+        optionFrame.setVisible(false);
+      });
 
-    //The food frame
+      //the meal back button
+      JButton mealBackButton = new JButton();
+      commonButtonProperties(foodFrame,mealBackButton, "Back", 12, 17, 150, 50, false, false);
+      mealBackButton.addActionListener(e -> {
+        optionFrame.setVisible(true);
+        foodFrame.setVisible(false);
+      });
 
-    JFrame foodFrame = new JFrame();
-    foodFrame.setSize(MainFrame.frameSize);
-    foodFrame.setLocationRelativeTo(null);
-    foodFrame.setLayout(null);
-    foodFrame.add(foodBackPanel);
-    foodFrame.add(mealPanel);
-    popcorn.setOpaque(false);
-    nachos.setOpaque(false);
-    hotdog.setOpaque(false);
-    foodFrame.setVisible(false);
-    foodFrame.setResizable(false); // Disables the feature to resize the frame
+      //Option checkout button
+      JButton optionsCheckoutButton = new JButton();
+      commonButtonProperties(optionFrame,optionsCheckoutButton, "Checkout", 1000, 55, 200, 75, false, false);
+      //Food checkout button
+      JButton foodCheckoutButton = new JButton();
+      commonButtonProperties(foodFrame,foodCheckoutButton, "Checkout", 1000, 100, 200, 75, false, false);
 
+      //Dink checkout button
+      JButton drinksCheckoutButton = new JButton();
+      commonButtonProperties(drinkFrame,drinksCheckoutButton, "Checkout", 1000, 100, 200, 75, false, false);
 
-    //Food button
-    JButton foodButton = new JButton();
-    foodButton.setText("Food");
-    foodButton.setOpaque(false);
-    foodButton.setFocusable(false);
-    optionPanel.add(foodButton);
-    foodButton.setBounds(0, 0, 200, 100);
-    foodButton.addActionListener(e -> {
-      optionFrame.setVisible(false);
-      foodFrame.setVisible(true);
-      drinkFrame.setVisible(false);
-    });
-
-    //Drink button
-    JButton drinkButton = new JButton();
-    drinkButton.setText("Drink");
-    drinkButton.setOpaque(false);
-    drinkButton.setFocusable(false);
-    optionPanel.add(drinkButton);
-    drinkButton.setBounds(200, 0, 200, 100);
-    drinkButton.addActionListener(e -> {
-      optionFrame.setVisible(false);
-      foodFrame.setVisible(false);
-      drinkFrame.setVisible(true);
-    });
-
-    //the Drinks back button
-    JButton drinksBackButton = new JButton();
-    drinksBackButton.setBounds(12, 17, 150, 50);
-    drinksBackButton.setText("Back");
-    drinksBackButton.setOpaque(false);
-    drinkFrame.add(drinksBackButton);
-    drinksBackButton.addActionListener(e -> {
-      optionFrame.setVisible(true);
-      drinkFrame.setVisible(false);
-    });
-
-    JButton counterbackbutton = new JButton();
-    counterbackbutton.setBounds(12, 17, 150, 50);
-    counterbackbutton.setText("Back");
-    counterbackbutton.setOpaque(false);
-    optionFrame.add(counterbackbutton);
-    counterbackbutton.addActionListener(e -> {
-      optionFrame.setVisible(false);
-    });
-
-    //the meal back button
-    JButton mealBackButton = new JButton();
-    mealBackButton.setBounds(12, 17, 150, 50);
-    mealBackButton.setText("Back");
-    mealBackButton.setOpaque(false);
-    foodFrame.add(mealBackButton);
-    mealBackButton.addActionListener(e -> {
-      optionFrame.setVisible(true);
-      foodFrame.setVisible(false);
-    });
-
-    //Option checkout button
-    JButton optionsCheckoutButton = new JButton();
-    optionsCheckoutButton.setBounds(1000, 55, 200, 75);
-    optionsCheckoutButton.setText("Checkout");
-    optionsCheckoutButton.setOpaque(false);
-    optionFrame.add(optionsCheckoutButton);
-    optionsCheckoutButton.addActionListener(listener);
-
-    //Food checkout button
-    JButton foodCheckoutButton = new JButton();
-    foodCheckoutButton.setBounds(1000, 70, 200, 75);
-    foodCheckoutButton.setText("Checkout");
-    foodCheckoutButton.setOpaque(false);
-    foodFrame.add(foodCheckoutButton);
-    foodCheckoutButton.addActionListener(listener);
-
-    //Dink checkout button
-    JButton drinksCheckoutButton = new JButton();
-    drinksCheckoutButton.setBounds(1000, 100, 200, 75);
-    drinksCheckoutButton.setText("Checkout");
-    drinksCheckoutButton.setOpaque(false);
-    drinkFrame.add(drinksCheckoutButton);
-    drinksCheckoutButton.addActionListener(listener);
   }
-  public void initButtons(JButton button){
-
+  public void commonPanelProperties(JPanel panel, JLabel label, int x,int y, int width, int height){
+    panel.setBounds(x, y, width, height);
+    panel.add(label);
+  }
+  public void commonPanelProperties(JPanel panel, int x,int y, int width, int height,boolean opaque,GridLayout layout){
+    panel.setBounds(x, y, width, height);
+    panel.setOpaque(opaque);
+    panel.setLayout(layout);
+  }
+  public void commonButtonProperties(JFrame frameToAddButton,JButton button,String buttonName, int x,int y, int width, int height,boolean opaque, boolean focus){
+    button.setText(buttonName);
+    button.setBounds(x, y, width, height);
+    button.setOpaque(opaque);
+    button.setFocusable(focus);
+    button.addActionListener(listener);
+    frameToAddButton.add(button);
+  }
+  public void commonButtonProperties(JPanel panelToAddButton,JButton button,String buttonName, int x,int y, int width, int height,boolean opaque, boolean focus){
+    button.setText(buttonName);
+    button.setBounds(x, y, width, height);
+    button.setOpaque(opaque);
+    button.setFocusable(focus);
+    button.addActionListener(listener);
+    panelToAddButton.add(button);
+  }
+  public void commonFrameProperties(JFrame frame,JPanel backPanel, JPanel panel,boolean visible, boolean resize){
+    frame.setSize(MainFrame.frameSize);
+    frame.setLocationRelativeTo(null);
+    frame.setLayout(null);
+    frame.add(backPanel);
+    frame.add(panel);
+    frame.setVisible(visible);
+    frame.setResizable(resize); // Disables the feature to resize the frame
   }
 }
