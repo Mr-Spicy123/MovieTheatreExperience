@@ -153,11 +153,10 @@ public class FoodCourtGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Purchase successful!");
               }
               else {
+                TotalCost.removeAllItems();
                 bankLabel.setText("$" + User.getBalance());
                 cartLabel.setText("$" + TotalCost.getTotalCost());
                 JOptionPane.showMessageDialog(null, "Not enough money");
-                TotalCost.removeAllItems();
-
               }
               break;
             case "Remove all":
@@ -355,5 +354,6 @@ public class FoodCourtGUI extends JFrame {
     frame.add(panel);
     frame.setVisible(visible);
     frame.setResizable(resize); // Disables the feature to resize the frame
+    frame.setAlwaysOnTop(true);
   }
 }
