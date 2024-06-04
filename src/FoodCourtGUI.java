@@ -253,13 +253,13 @@ public class FoodCourtGUI extends JFrame {
       drinksBackButton.addActionListener(e -> {
         optionFrame.setVisible(true);
         drinkFrame.setVisible(false);
-        moneyFrame.setVisible(false);
       });
 
       JButton counterbackbutton = new JButton();
       commonButtonProperties(optionFrame,counterbackbutton, "Back", 12, 17, 150, 50, false, false);
       counterbackbutton.addActionListener(e -> {
         optionFrame.setVisible(false);
+        moneyFrame.setVisible(false);    
       });
 
       //the meal back button
