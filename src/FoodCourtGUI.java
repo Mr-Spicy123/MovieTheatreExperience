@@ -14,14 +14,18 @@ public class FoodCourtGUI extends JFrame {
   ImageIcon drinkCounter = new ImageIcon("Res/Drink Interface_Sketch.png");
   JLabel optionsBackLabel = new JLabel();
   ImageIcon options = new ImageIcon("Res/Food Court Interface_Sketch.png");
+  JLabel moneyBackLabel = new JLabel();
+  ImageIcon money = new ImageIcon("Res/Food Court $ Frame_Sketch.png");
   Image optionsimage = options.getImage();
   Image drinkCounterimage = drinkCounter.getImage();
   Image foodCounterimage = foodCounter.getImage();
+  Image moneyimage = money.getImage();
   ActionListener listener;
 
   public FoodCourtGUI() {
     GridLayout Grid = new GridLayout(0, 3);
     GridLayout optionGrid = new GridLayout(0, 2);
+
     //Label
 
     int width = 1280; // New width for the scaled image
@@ -35,9 +39,13 @@ public class FoodCourtGUI extends JFrame {
     Image scaledImage3 = foodCounterimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
     ImageIcon scaledIcon3 = new ImageIcon(scaledImage3);
 
+    Image scaledImage4 = moneyimage.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+    ImageIcon scaledIcon4 = new ImageIcon(scaledImage4);
+
     foodBackLabel.setIcon(scaledIcon3);
     optionsBackLabel.setIcon(scaledIcon);
     drinkBackLabel.setIcon(scaledIcon2);
+    moneyBackLabel.setIcon(scaledIcon4);
     //Panel
 
     // The Food Back panel
@@ -49,6 +57,9 @@ public class FoodCourtGUI extends JFrame {
 
     JPanel optionsBackPanel = new JPanel();
     commonPanelProperties(optionsBackPanel, optionsBackLabel, 0, 0, 1280, 800);
+
+    JPanel moneyBackPanel = new JPanel();
+    commonPanelProperties(moneyBackPanel, moneyBackLabel, 0, 0, 250, 250);
 
     //Order Panel
     JPanel optionPanel = new JPanel();
@@ -62,10 +73,19 @@ public class FoodCourtGUI extends JFrame {
     JPanel mealPanel = new JPanel();
     commonPanelProperties(mealPanel,0, 200, 1280, 800, false, Grid);
 
+    JPanel moneyPanel = new JPanel();
+    commonPanelProperties(moneyPanel, 0,0,250, 250, false, null);
+
+
     //Food Panel
     JPanel foodPanel = new JPanel();
     foodPanel.setBounds(0, 0, 1280, 800);
     foodPanel.setBackground(Color.gray);
+
+
+    JFrame moneyFrame = new JFrame();
+    JLabel bankLabel = new JLabel("$" + User.getBalance());
+    JLabel cartLabel = new JLabel("$" + TotalCost.getTotalCost());
 
     listener = new ActionListener() {
       @Override
@@ -79,64 +99,87 @@ public class FoodCourtGUI extends JFrame {
             case "popcorn":
               TotalCost.addCost(Popcorn.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added popcorn to cart\nRunning total: $" + TotalCost.getTotalCost());
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
+              JOptionPane.showMessageDialog(null, "Added popcorn to cart");
               currentItem = "popcorn";
               break;
             case "nachos":
               TotalCost.addCost(Nachos.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added nachos to cart\nRunning total: $" + TotalCost.getTotalCost());
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
+              JOptionPane.showMessageDialog(null, "Added nachos to cart");
               currentItem = "nachos";
               break;
             case "hotdog":
               TotalCost.addCost(Hotdog.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added hotdog to cart\nRunning total: $" + TotalCost.getTotalCost());
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
+              JOptionPane.showMessageDialog(null, "Added hotdog to cart");
               currentItem = "hotdog";
               break;
             case "Coke":
               TotalCost.addCost(CocaCola.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added CocaCola to cart\nRunning total: $" + TotalCost.getTotalCost());
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
+              JOptionPane.showMessageDialog(null, "Added CocaCola to cart");
               currentItem = "CocaCola";
               break;
             case "Sprite":
               TotalCost.addCost(Sprite.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added Sprite to cart\nRunning total: $" + TotalCost.getTotalCost());
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
+              JOptionPane.showMessageDialog(null, "Added Sprite to cart");
               currentItem = "Sprite";
               break;
             case "Fanta":
               TotalCost.addCost(Fanta.price);
               TotalCost.print();
-              JOptionPane.showMessageDialog(null, "Added Fanta to cart\nRunning total: $" + TotalCost.getTotalCost());
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
+              JOptionPane.showMessageDialog(null, "Added Fanta to cart");
               currentItem = "Fanta";
               break;
             case "Checkout":
               if (User.getBalance() >= TotalCost.getTotalCost()) {
                 User.changeBalance(TotalCost.getTotalCost());
                 TotalCost.removeAllItems();
-                JOptionPane.showMessageDialog(null, "Purchase successful!\nBalance remaining: $" + User.getBalance());
+                bankLabel.setText("$" + User.getBalance());
+                cartLabel.setText("$" + TotalCost.getTotalCost());
+                JOptionPane.showMessageDialog(null, "Purchase successful!");
               }
               else {
-                JOptionPane.showMessageDialog(null, "Not enough money. You need $" + TotalCost.getTotalCost() + " and you have $" + User.getBalance());
+                JOptionPane.showMessageDialog(null, "Not enough money");
                 TotalCost.removeAllItems();
               }
               break;
             case "Remove all":
               TotalCost.removeAllItems();
+              bankLabel.setText("$" + User.getBalance());
+              cartLabel.setText("$" + TotalCost.getTotalCost());
               JOptionPane.showMessageDialog(null, "All items in cart have been removed!");
               break;
             case "Remove recent":
               try {
                 TotalCost.removeLastItem();
-                JOptionPane.showMessageDialog(null, "Removed previous item!\nRunning total: $" + TotalCost.getTotalCost());
+                bankLabel.setText("$" + User.getBalance());
+                cartLabel.setText("$" + TotalCost.getTotalCost());
+                JOptionPane.showMessageDialog(null, "Removed previous item!");
               } catch (ArrayIndexOutOfBoundsException f) {
+                bankLabel.setText("$" + User.getBalance());
+                cartLabel.setText("$" + TotalCost.getTotalCost());
                 JOptionPane.showMessageDialog(null, "Cart is already empty");
                 TotalCost.totalCostInd = 0;
               }
 
           }
+
+          moneyFrame.revalidate();
+          moneyFrame.repaint();
         }
       }
     };
@@ -179,6 +222,11 @@ public class FoodCourtGUI extends JFrame {
       JFrame foodFrame = new JFrame();
       commonFrameProperties(foodFrame, foodBackPanel, mealPanel, false, false);
 
+
+      commonFrameProperties(moneyFrame, moneyBackPanel, moneyPanel, bankLabel, cartLabel, 0, 0, 250, 250, true, false);
+
+
+
       //Food button
       JButton foodButton = new JButton();
       commonButtonProperties(optionPanel,foodButton, "Food", 200, 0, 200, 100, false, false);
@@ -203,6 +251,7 @@ public class FoodCourtGUI extends JFrame {
       drinksBackButton.addActionListener(e -> {
         optionFrame.setVisible(true);
         drinkFrame.setVisible(false);
+        moneyFrame.setVisible(false);
       });
 
       JButton counterbackbutton = new JButton();
@@ -284,6 +333,21 @@ public class FoodCourtGUI extends JFrame {
     frame.setSize(MainFrame.frameSize);
     frame.setLocationRelativeTo(null);
     frame.setLayout(null);
+    frame.add(backPanel);
+    frame.add(panel);
+    frame.setVisible(visible);
+    frame.setResizable(resize); // Disables the feature to resize the frame
+  }
+
+  //specifcally for moneyFrame
+  public void commonFrameProperties(JFrame frame, JPanel backPanel, JPanel panel, JLabel label1, JLabel label2, int x, int y, int width, int height, boolean visible, boolean resize) {
+    frame.setBounds(x, y, width, height);
+    frame.setLocationRelativeTo(null);
+    frame.setLayout(null);
+    label1.setBounds(200,100 ,30,20);
+    label2.setBounds(200,175,30,20);
+    frame.add(label1);
+    frame.add(label2);
     frame.add(backPanel);
     frame.add(panel);
     frame.setVisible(visible);
