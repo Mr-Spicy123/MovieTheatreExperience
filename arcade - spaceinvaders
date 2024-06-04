@@ -1,0 +1,376 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Random;
+
+
+public class Main {
+    static boolean leftPressed = false;
+    static boolean rightPressed = false;
+    static boolean spacePressed = false;
+    static int cannonX = 390; // initial position of the cannon
+    static final int CANNON_STEP = 5; // step size for cannon movement
+    static final int BULLET_STEP = 10; // step size for bullet movement
+    static int bulletY = 600; // initial position of the bullet
+    static JLabel bullet; // bullet JLabel
+    static boolean bulletFired = false; // to check if the bullet is already fired
+
+
+    public static void main(String[] args) {
+        // Define colors for the background and foreground
+        Color backgroundClr = new Color(220, 195, 232);
+        Color foreground = new Color(126, 91, 143);
+
+
+        JLabel[] alienBullets = new JLabel[30];
+
+
+        JLabel[] aliens = new JLabel[30];
+        ImageIcon alienIcon = new ImageIcon("alien.png");
+        for (int i = 0; i < 30; i++) {
+            aliens[i] = new JLabel(alienIcon);
+            if (i < 10) {
+                aliens[i].setBounds((i * 50) + 140, 9, 33, 30);
+            } else if (i < 20) {
+                aliens[i].setBounds(((i - 10) * 50) + 140, 39, 33, 30);
+            } else {
+                aliens[i].setBounds(((i - 20) * 50) + 140, 69, 33, 30);
+            }
+        }
+
+
+        // Create the main JFrame
+        JFrame main = new JFrame("Space Invaders");
+        main.setSize(800, 600);
+        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        main.setLocationRelativeTo(null);
+        main.setLayout(new FlowLayout());
+        main.getContentPane().setBackground(Color.BLACK);
+
+
+        // Create JLayeredPane for the game
+        JLayeredPane game = new JLayeredPane();
+        game.setPreferredSize(new Dimension(800, 600));
+
+
+        ImageIcon cannonIcon = new ImageIcon("cannon.png");
+        JLabel cannon = new JLabel(cannonIcon);
+        cannon.setBounds(cannonX, 550, 33, 28);
+
+
+        // Create main panel
+        JPanel mainPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Set the background color to black
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, getWidth(), getHeight());
+                // Draw the cannon at its current position
+                cannon.setBounds(cannonX, 550, 33, 28);
+                if (bulletFired) {
+                    bullet.setBounds(bullet.getX(), bulletY, 3, 18); // Center the bullet to the cannon
+                }
+            }
+        };
+        mainPanel.setLayout(null);
+        mainPanel.setBounds(10, 10, 790, 590);
+        mainPanel.setBackground(new Color(0, 0, 0, 0));
+        mainPanel.setFocusable(true);
+        mainPanel.add(cannon);
+
+
+        // Title label
+        JLabel title = new JLabel("SPACE INVADERS");
+        title.setFont(new Font("Dialog", Font.BOLD, 30));
+        title.setForeground(backgroundClr);
+        title.setBounds(230, 100, 600, 100);
+        mainPanel.add(title);
+
+
+        ImageIcon bulletIcon = new ImageIcon("bullet.png");
+        bullet = new JLabel(bulletIcon);
+        bullet.setBounds(cannonX + 15, bulletY, 3, 18); // Center the bullet to the cannon
+        mainPanel.add(bullet);
+
+        JButton returnA = new JButton("<- Return to Arcade");
+        returnA.setFont(new Font("Dialog", Font.BOLD, 15));
+        returnA.setForeground(foreground);
+        returnA.setBackground(backgroundClr);
+        returnA.setBounds(10, 5, 230, 50);
+        returnA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //add code once arcade games and main screen are finished
+            }
+        });
+
+
+
+        // Instructions button
+        JButton instructionsButton = new JButton("Instructions");
+        instructionsButton.setFont(new Font("Dialog", Font.BOLD, 25));
+        instructionsButton.setForeground(foreground);
+        instructionsButton.setBackground(backgroundClr);
+        instructionsButton.setBounds(390, 250, 200, 100);
+        mainPanel.add(instructionsButton);
+        instructionsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createInstructionsFrame(backgroundClr, foreground);
+            }
+        });
+
+
+        // Timer for the cannon and bullets
+        Timer cannonTimer = new Timer(15, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (leftPressed) {
+                    cannonX = Math.max(0, cannonX - CANNON_STEP);
+                } else if (rightPressed) {
+                    cannonX = Math.min(mainPanel.getWidth() - cannon.getWidth(), cannonX + CANNON_STEP);
+                }
+                if (bulletFired) {
+                    bulletY -= BULLET_STEP;
+                    if (bulletY < -bullet.getHeight()-50) { // reset the bullet when it goes off screen
+                        bulletFired = false;
+                    }
+                    // Check for collision with aliens
+                    for (JLabel alien : aliens) {
+                        if (alien.isVisible() && bullet.getBounds().intersects(alien.getBounds())) {
+                            alien.setVisible(false); // make the alien disappear
+                            bulletFired = false; // reset the bullet
+                            bullet.setBounds(-100, -100, 3, 18);
+                            break; // exit the loop to avoid processing other collisions
+                        }
+                    }
+                }
+                mainPanel.repaint(); // Repaint the panel to update the positions
+            }
+        });
+
+
+
+        // Timer for the aliens
+        Timer alienTimer = new Timer(100, new ActionListener() {
+            int alienDirection = 1; // 1 for right, -1 for left
+            int alienX = 140; // initial position of the aliens
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alienX += alienDirection * 10; // Move aliens 10 pixels
+                if (alienX >= 310 || alienX <= 10) { // Check if aliens reach the edge
+                    for (JLabel alien : aliens) {
+                        alien.setLocation(alien.getX(), alien.getY() + 30); // Drop aliens down
+                    }
+                    alienDirection *= -1; // Change direction
+                }
+                // Set new position for aliens
+                for (JLabel alien : aliens) {
+                    if (alien.isVisible()) { // Check if alien is still visible
+                        alien.setLocation(alien.getX() + alienDirection * 10, alien.getY());
+                        // Check for alien-cannon collision
+                        if (alien.getBounds().intersects(cannon.getBounds())) {
+                            endGame(mainPanel, returnA); // End the game if collision occurs
+                        }
+                        // Check for alien reaching the bottom
+                        if (alien.getY() >= mainPanel.getHeight() - alien.getHeight()) {
+                            endGame(mainPanel, returnA); // End the game if alien reaches the bottom
+                        }
+                    }
+                }
+                // Check if all aliens are shot
+                boolean allAliensShot = true;
+                for (JLabel alien : aliens) {
+                    if (alien.isVisible()) {
+                        allAliensShot = false;
+                        break;
+                    }
+                }
+                if (allAliensShot) {
+                    endGame(mainPanel, returnA); // End the game if all aliens are shot
+                }
+
+                mainPanel.repaint(); // Repaint the panel to update the positions
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+        // Start button
+        JButton startButton = new JButton("Start");
+        startButton.setFont(new Font("Dialog", Font.BOLD, 25));
+        startButton.setForeground(foreground);
+        startButton.setBackground(backgroundClr);
+        startButton.setBounds(180, 250, 200, 100);
+        mainPanel.add(startButton);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainPanel.remove(startButton);
+                mainPanel.remove(instructionsButton);
+                mainPanel.remove(title);
+                createAliens(mainPanel, aliens);
+                mainPanel.revalidate();
+                mainPanel.repaint();
+                main.pack();
+                mainPanel.requestFocusInWindow();
+                alienTimer.start();
+                cannonTimer.start();
+            }
+        });
+
+
+
+
+
+
+        // Add key listener for moving the cannon and shooting
+        mainPanel.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_LEFT) {
+                    leftPressed = true;
+                } else if (key == KeyEvent.VK_RIGHT) {
+                    rightPressed = true;
+                } else if (key == KeyEvent.VK_SPACE && !bulletFired) {
+                    bulletFired = true; // fire a new bullet
+                    bulletY = 530;
+                    bullet.setBounds(cannonX + 15, 530, 3, 18);
+                }
+            }
+
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_LEFT) {
+                    leftPressed = false;
+                } else if (key == KeyEvent.VK_RIGHT) {
+                    rightPressed = false;
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+        // Add panels to the game layered pane
+        game.add(mainPanel, JLayeredPane.PALETTE_LAYER);
+
+
+        // Add the game layered pane to the main frame
+        main.add(game);
+        main.setResizable(false);
+        main.setVisible(true);
+        mainPanel.requestFocusInWindow();
+    }
+
+
+    private static void endGame(JPanel panel, JButton returnA) {
+        panel.removeAll();
+        JLabel gameOverLabel = new JLabel("GAME OVER");
+        gameOverLabel.setFont(new Font("Dialog", Font.BOLD, 30));
+        gameOverLabel.setForeground(new Color(252, 3, 132));
+        gameOverLabel.setBounds(300, 250, 200, 100);
+        panel.add(gameOverLabel);
+        panel.add(returnA);
+        panel.revalidate();
+        panel.repaint();
+    }
+
+
+
+
+
+
+    // Method to create alien JLabels and add them to the panel
+    public static void createAliens(JPanel panel, JLabel[] aliens) {
+        ImageIcon alienIcon = new ImageIcon("alien.png");
+        for (int i = 0; i < 30; i++) {
+            panel.add(aliens[i]);
+        }
+    }
+
+
+    // Method to create and display the instructions frame
+    private static void createInstructionsFrame(Color backgroundClr, Color foreground) {
+        JFrame instructions = new JFrame("Instructions");
+        instructions.setSize(500, 400);
+        instructions.setLayout(null);
+        instructions.setLocationRelativeTo(null);
+
+
+        JLayeredPane inst = new JLayeredPane();
+        inst.setBounds(0, 0, 500, 400);
+
+
+        JPanel mainInst = new JPanel();
+        mainInst.setBackground(new Color(0, 0, 0, 0));
+        mainInst.setBounds(10, 10, 490, 390);
+        mainInst.setLayout(null);
+
+
+        JPanel instBG = new JPanel();
+        instBG.setBounds(0, 0, 500, 400);
+        instBG.setLayout(null);
+
+
+        ImageIcon instBackground = new ImageIcon("10705144 (1).jpg");
+        JLabel instBackgroundLabel = new JLabel(instBackground);
+        instBackgroundLabel.setBounds(0, 0, 500, 400);
+        instBG.add(instBackgroundLabel);
+
+
+        JLabel instructions1 = new JLabel("Instructions");
+        instructions1.setFont(new Font("Dialog", Font.BOLD, 30));
+        instructions1.setBounds(160, 10, 400, 100);
+        instructions1.setForeground(backgroundClr);
+        mainInst.add(instructions1);
+
+
+        JLabel instructions2 = new JLabel("Use arrow keys to move the cannon");
+        instructions2.setFont(new Font("Dialog", Font.BOLD, 20));
+        instructions2.setBounds(20, 100, 400, 100);
+        instructions2.setForeground(backgroundClr);
+        mainInst.add(instructions2);
+
+
+        JLabel instructions3 = new JLabel("Use spacebar to shoot the cannon");
+        instructions3.setFont(new Font("Dialog", Font.BOLD, 20));
+        instructions3.setBounds(20, 160, 400, 100);
+        instructions3.setForeground(backgroundClr);
+        mainInst.add(instructions3);
+
+
+        inst.add(instBG, JLayeredPane.DEFAULT_LAYER);
+        inst.add(mainInst, JLayeredPane.PALETTE_LAYER);
+        instructions.add(inst);
+
+
+        instructions.setVisible(true); // Make instructions JFrame visible
+    }
+}
